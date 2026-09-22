@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanisk — 19 y/o CS Student & Maker</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Gaegu, Caveat, Patrick Hand, Quicksand, Shantell Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&family=Quicksand:wght@500;600;700&family=Shantell+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            hand: ['"Patrick Hand"', 'cursive'],
+            scribble: ['"Caveat"', 'cursive'],
+            sans: ['"Quicksand"', 'sans-serif'],
+            fun: ['"Shantell Sans"', 'cursive'],
+          },
+          colors: {
+            doodle: {
+              ink: '#1E1B18',
+              bg: '#FAF8F5',
+              paper: '#FFFDF9',
+              yellow: '#FEF08A',
+              pink: '#FBCFE8',
+              blue: '#BAE6FD',
+              green: '#BBF7D0',
+              peach: '#FED7AA',
+              purple: '#DDD6FE',
+            }
+          },
+          boxShadow: {
+            'doodle': '4px 4px 0px #1E1B18',
+            'doodle-lg': '8px 8px 0px #1E1B18',
+            'doodle-sm': '2px 2px 0px #1E1B18',
+            'doodle-pop': '6px 6px 0px #1E1B18',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    
+    body {
+      background-color: #FAF8F5;
+      background-image: 
+        radial-gradient(#d1d5db 1.2px, transparent 1.2px),
+        radial-gradient(#e5e7eb 1.2px, #faf8f5 1.2px);
+      background-size: 26px 26px;
+      background-position: 0 0, 13px 13px;
+      color: #1E1B18;
+    }
+
+    /* Hand-drawn borders */
+    .border-sketch {
+      border: 2.5px solid #1E1B18;
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    }
+
+    .border-sketch-card {
+      border: 2.5px solid #1E1B18;
+      border-radius: 24px 6px 26px 8px / 8px 26px 6px 24px;
+    }
+
+    .border-sketch-tag {
+      border: 2px solid #1E1B18;
+      border-radius: 12px 4px 14px 5px / 5px 14px 4px 12px;
+    }
+
+    /* Washi tape accents */
+    .washi-tape {
+      background: rgba(254, 240, 138, 0.85);
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 90px;
+      height: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+      clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%, 2% 50%);
+    }
+
+    /* Story Card Pop States */
+    .story-bubble {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      opacity: 0.35;
+      transform: scale(0.95) translateX(-8px);
+    }
+
+    .story-bubble.active-pop {
+      opacity: 1 !important;
+      transform: scale(1.02) translateX(0px) !important;
+      box-shadow: 8px 8px 0px #1E1B18 !important;
+      border-color: #1E1B18 !important;
+    }
+
+    /* Trail animation */
+    .journey-path {
+      stroke-dasharray: 6, 6;
+      animation: dashMove 14s linear infinite;
+    }
+
+    @keyframes dashMove {
+      to {
+        stroke-dashoffset: -120;
+      }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 9px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF8F5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E1B18;
+      border-radius: 6px;
+      border: 2px solid #FAF8F5;
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased text-[#1E1B18] overflow-x-hidden selection:bg-yellow-300 selection:text-black">
+
+  <header class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-4 flex items-center justify-between">
+    <div class="flex items-center gap-2 group cursor-pointer">
+      <div class="w-11 h-11 rounded-full bg-yellow-200 border-2 border-black flex items-center justify-center font-scribble text-2xl font-bold shadow-doodle-sm transform group-hover:-rotate-12 transition">
+        K
+      </div>
+      <div>
+        <span class="font-fun text-xl font-bold tracking-tight">Kanisk.doodle</span>
+        <span class="text-xs block text-stone-500 font-hand -mt-1">19 y/o • student notebook</span>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <nav class="flex items-center gap-3">
+      <a href="#working-on" class="hidden sm:inline-flex items-center gap-1.5 font-hand text-lg hover:underline font-bold px-3 py-1 bg-white border-2 border-black rounded-lg shadow-doodle-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
+        <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i> Working On
+      </a>
+      <a href="#life-journey" class="font-hand text-lg font-bold px-4 py-1.5 bg-yellow-300 border-2 border-black rounded-lg shadow-doodle hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-doodle-sm transition flex items-center gap-2">
+        <i data-lucide="compass" class="w-4 h-4"></i>
+        <span>My Journey Map</span>
+      </a>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-12">
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
+      
+      <!-- Left Column: Honest Bio & Skill Badges -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 bg-pink-100 border-2 border-black px-3.5 py-1 rounded-full text-sm font-hand font-bold shadow-doodle-sm transform -rotate-1">
+          <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+          <span>Open to learning & crazy startup ideas</span>
+        </div>
+
+       
+        <div class="relative">
+          <h1 class="font-fun text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
+            Hi, I'm <span class="bg-yellow-200 px-2.5 py-0.5 border-sketch inline-block transform -rotate-1">Kanisk</span>
+          </h1>
+          
+          <div class="mt-4 p-5 sm:p-6 bg-white border-sketch-card shadow-doodle-pop relative">
+            <div class="washi-tape"></div>
+            <p class="font-fun text-xl sm:text-2xl text-stone-900 leading-relaxed font-semibold">
+              “Hi , I'm Kanisk a 19 year old CS student who mayn't be the smartest kid on earth but is surely trying as hard as one could”
+            </p>
+            <div class="mt-3.5 pt-3 border-t-2 border-dashed border-stone-200 flex flex-wrap items-center justify-between gap-2 text-stone-600 font-hand text-base sm:text-lg">
+              <span class="flex items-center gap-1.5 font-bold text-stone-800">
+                <i data-lucide="terminal" class="w-4 h-4 text-emerald-600"></i> Currently in sem 1 . 
+              <span class="italic text-stone-500">I also love reading 📚, so if u ever meet me irl pls suggest me some good books.
+              </span></span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-stone-700 text-base md:text-lg font-medium leading-relaxed font-sans">
+          Building my technical foundation brick by brick. I'm currently learning C and have learnt Python, HTML, CSS, JS  <strong>I know this is super simple but I promise I'm learning</strong>
+        <div class="flex flex-wrap gap-2.5 pt-1">
+          <span class="px-3 py-1 bg-yellow-100 border-sketch-tag text-sm font-hand font-bold shadow-doodle-sm">
+            🐍 Python
+          </span>
+          <span class="px-3 py-1 bg-blue-100 border-sketch-tag text-sm font-hand font-bold shadow-doodle-sm">
+            🌐 HTML / CSS(Tailwind) / JS
+          </span>
+          <span class="px-3 py-1 bg-pink-100 border-sketch-tag text-sm font-hand font-bold shadow-doodle-sm">
+            📖 Both Fiction & Non-Fiction Books
+          </span>
+          <span class="px-3 py-1 bg-green-100 border-sketch-tag text-sm font-hand font-bold shadow-doodle-sm">
+            💡 Aspiring Founder(hopefully)
+          </span>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a  class="px-6 py-3 bg-black text-white font-fun font-bold text-base rounded-xl border-2 border-black shadow-doodle hover:bg-stone-800 hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-doodle-sm transition flex items-center gap-2">
+            <span>Do mail me if u have suggestions for me</span>
+            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+          <button onclick="copyEmail(this)" class="px-5 py-3 bg-white font-fun font-bold text-base text-black rounded-xl border-2 border-black shadow-doodle hover:bg-amber-50 hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-doodle-sm transition flex items-center gap-2">
+            <i data-lucide="mail" class="w-4 h-4 text-blue-500"></i>
+            <span id="copy-btn-text">kaniskgautam13@gmail.com</span>
+          </button>
+        </div>
+      </div>
+
+      
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-sm sm:max-w-md">
+          <div class="absolute inset-0 bg-yellow-200 border-sketch rounded-3xl transform rotate-3 shadow-doodle"></div>
+          
+          <div class="relative bg-white border-2 border-black rounded-3xl p-6 shadow-doodle overflow-hidden group">
+            <div class="absolute top-3 right-4 font-hand text-xl text-amber-500 select-none animate-pulse">✦ ✨ ✦</div>
+            <div class="absolute bottom-3 left-4 font-hand text-xs text-stone-400">the doodle library </div>
+
+            <div class="flex items-center justify-center p-3 min-h-[280px]">
+              <img 
+                id="hero-doodle-img"
+                src="https://cdn.prod.website-files.com/5a7edf0d432d43000114d381/65ef9776508a20cb1251e032_AI.svg" 
+                alt="AI Doodle Illustration" 
+                class="w-64 h-64 object-contain mx-auto transform group-hover:scale-105 group-hover:-rotate-1 transition duration-300"
+                onerror="handleDoodleFallback(this, 'AI Exploration')"
+              />
+            </div>
+
+            <div class="mt-2 text-center border-t-2 border-dashed border-stone-300 pt-3">
+              <span class="font-hand text-lg font-bold text-stone-800 bg-purple-100 px-3 py-1 rounded-full border border-black">
+                🤖 "Me in maths class"
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="working-on" class="mt-24 pt-8">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="font-scribble text-2xl text-pink-600 block -rotate-3">daily log & active quests</span>
+        <h2 class="font-fun text-3xl sm:text-4xl font-extrabold mt-1">
+          Currently Working On
+        </h2>
+        <div class="w-24 h-1.5 bg-black mx-auto mt-2 rounded-full"></div>
+        <p class="font-hand text-xl text-stone-600 mt-2">
+          *I'm just trying to do all three.
+        </p>
+      </div>
+
+      <!-- 3 Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="bg-white border-sketch-card p-6 shadow-doodle flex flex-col justify-between relative group hover:-translate-y-1.5 transition duration-200">
+          <div class="washi-tape" style="background: rgba(186, 230, 253, 0.85);"></div>
+          
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-stone-100 pb-3 mb-4">
+              <span class="px-2.5 py-0.5 bg-blue-100 border border-black rounded font-fun text-xs font-bold uppercase tracking-wider">
+                Focus 01
+              </span>
+              <span class="font-hand text-stone-500 text-sm">Computer Science</span>
+            </div>
+
+            <div class="h-44 flex items-center justify-center p-2 bg-sky-50/60 rounded-xl border border-stone-200 mb-4 overflow-hidden">
+              <img 
+                src="https://cdn.prod.website-files.com/5a7edf0d432d43000114d381/6631231d88e02dcaad95d13c_writing.svg" 
+                alt="Studies doodle" 
+                class="max-h-36 max-w-full object-contain group-hover:scale-105 transition"
+                onerror="handleDoodleFallback(this, 'Writing & Studies')"
+              />
+            </div>
+
+            <h3 class="font-fun text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
+              <span>Studies</span>
+              <span class="text-sm font-hand bg-yellow-200 px-2 py-0.5 rounded border border-black">CS Foundations</span>
+            </h3>
+
+            <p class="text-stone-700 text-sm leading-relaxed font-sans mb-4">
+              Mastering Python frameworks and libraries ,learning boring maths,chems and phy, studying algorithms, and learning electronics from ground up.
+            </p>
+          </div>
+
+          <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 font-hand text-stone-800 text-sm flex items-center gap-2">
+            
+          </div>
+        </div>
+
+        <!-- CARD 2: Health (weightlifting.svg) -->
+        <div class="bg-white border-sketch-card p-6 shadow-doodle flex flex-col justify-between relative group hover:-translate-y-1.5 transition duration-200">
+          <div class="washi-tape" style="background: rgba(187, 247, 208, 0.85);"></div>
+
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-stone-100 pb-3 mb-4">
+              <span class="px-2.5 py-0.5 bg-green-100 border border-black rounded font-fun text-xs font-bold uppercase tracking-wider">
+                Focus 02
+              </span>
+              <span class="font-hand text-stone-500 text-sm">Discipline</span>
+            </div>
+
+            <div class="h-44 flex items-center justify-center p-2 bg-emerald-50/60 rounded-xl border border-stone-200 mb-4 overflow-hidden">
+              <img 
+                src="https://cdn.prod.website-files.com/5a7edf0d432d43000114d381/663122f085a033ba610f46cf_weightlifting.svg" 
+                alt="Health doodle" 
+                class="max-h-36 max-w-full object-contain group-hover:scale-105 transition"
+                onerror="handleDoodleFallback(this, 'Weightlifting & Health')"
+              />
+            </div>
+
+            <h3 class="font-fun text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
+              <span>Health</span>
+              <span class="text-sm font-hand bg-green-200 px-2 py-0.5 rounded border border-black">Fitness</span>
+            </h3>
+
+            <p class="text-stone-700 text-sm leading-relaxed font-sans mb-4">
+              Staying active and hitting the weights so sitting at a desk all day doesn't ruin my back. Building physical strength and mental endurance for the long startup grind ahead.
+            </p>
+          </div>
+
+          <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 font-hand text-stone-800 text-sm flex items-center gap-2">
+            
+          </div>
+        </div>
+
+        <div class="bg-white border-sketch-card p-6 shadow-doodle flex flex-col justify-between relative group hover:-translate-y-1.5 transition duration-200">
+          <div class="washi-tape" style="background: rgba(251, 207, 232, 0.85);"></div>
+
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-stone-100 pb-3 mb-4">
+              <span class="px-2.5 py-0.5 bg-pink-100 border border-black rounded font-fun text-xs font-bold uppercase tracking-wider text-pink-800">
+                Focus 03
+              </span>
+              <span class="font-hand text-rose-500 font-bold text-sm">Everyday Reality</span>
+            </div>
+
+            <div class="h-44 flex items-center justify-center p-2 bg-rose-50/60 rounded-xl border border-stone-200 mb-4 overflow-hidden">
+              <img 
+                src="https://cdn.prod.website-files.com/5a7edf0d432d43000114d381/66312215501c9a591d77a6f3_stumped%20at%20work.svg" 
+                alt="Failing to study doodle" 
+                class="max-h-36 max-w-full object-contain group-hover:scale-105 transition"
+                onerror="handleDoodleFallback(this, 'Stumped at Work')"
+              />
+            </div>
+
+            <h3 class="font-fun text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
+              <span>Failing to Study</span>
+              <span class="text-sm font-hand bg-pink-200 px-2 py-0.5 rounded border border-black">Honest truth</span>
+            </h3>
+
+            <p class="text-stone-700 text-sm leading-relaxed font-sans mb-4">
+              Opening insta,X youtube ,reddit basically everything except studing, getting trapped reading political gossip or watching news instead of doing coursework, staring blankly at a console bug, and cursing my screen .
+            </p>
+          </div>
+
+          <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 font-hand text-stone-800 text-sm flex items-center gap-2">
+            
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="life-journey" class="mt-28 relative">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="inline-block bg-amber-200 border-2 border-black px-4 py-1 font-hand font-bold text-lg -rotate-2 rounded-lg shadow-doodle-sm mb-2">
+          🗺️ Continuous Scroll Journey
+        </div>
+        <h2 class="font-fun text-3xl sm:text-5xl font-extrabold tracking-tight">
+          My Life & Coordinates
+        </h2>
+        <p class="font-hand text-xl text-stone-600 mt-2">
+          Just scroll naturally. Watch the map smoothly zoom into Patna's streets and transform vehicles!
+        </p>
+      </div>
+
+      <div id="scrolly-wrapper" class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <div class="lg:col-span-7 sticky top-6 z-30">
+          <div class="bg-[#FFFDF9] border-sketch-card p-4 sm:p-5 shadow-doodle-pop relative overflow-hidden">
+            <div class="washi-tape"></div>
+
+            <!-- Top live tracker banner -->
+            <div class="flex items-center justify-between border-b-2 border-stone-200 pb-3 mb-3 font-hand text-sm font-bold">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+                <span id="current-stage-title" class="text-base sm:text-lg text-stone-900 font-fun">
+                  Baroda, Gujarat
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span id="vehicle-indicator" class="text-xs sm:text-sm bg-yellow-200 border border-black px-2.5 py-0.5 rounded-md font-hand font-bold shadow-doodle-sm">
+                  🚂 Indian Railways
+                </span>
+              </div>
+            </div>
+
+            <!-- SVG Animated Map -->
+            <div class="relative w-full aspect-[4/3] bg-[#F7F3E9] rounded-2xl border-2 border-black overflow-hidden shadow-inner">
+              
+              <!-- Subtle Paper grid inside map -->
+              <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: linear-gradient(#9ca3af 1px, transparent 1px), linear-gradient(90deg, #9ca3af 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+              <!-- Main SVG Canvas -->
+              <svg 
+                id="interactive-map-svg" 
+                viewBox="0 0 600 450" 
+                class="w-full h-full select-none"
+              >
+                <!-- INDIA OVERVIEW MAP CONTOURS -->
+                <g id="india-outline" class="transition-opacity duration-300">
+                  <!-- Abstract cute Indian subcontinent outline -->
+                  <path d="M 170,110 Q 220,60 270,70 Q 320,80 340,130 Q 380,150 440,160 Q 420,200 370,220 Q 330,240 310,290 Q 280,380 250,420 Q 220,380 180,310 Q 150,260 130,220 Q 110,180 170,110 Z" 
+                        fill="#FEFDF5" stroke="#1E1B18" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+                  
+                  <!-- Ocean Waves -->
+                  <path d="M 80,260 Q 95,255 110,260 Q 125,265 140,260" stroke="#93C5FD" stroke-width="2" fill="none" stroke-linecap="round" />
+                  <path d="M 60,300 Q 75,295 90,300 Q 105,305 120,300" stroke="#93C5FD" stroke-width="2" fill="none" stroke-linecap="round" />
+                  <path d="M 370,320 Q 385,315 400,320 Q 415,325 430,320" stroke="#93C5FD" stroke-width="2" fill="none" stroke-linecap="round" />
+
+                  <!-- Compass doodle -->
+                  <g transform="translate(470, 70)">
+                    <circle cx="0" cy="0" r="16" fill="white" stroke="#1E1B18" stroke-width="2" />
+                    <path d="M 0,-13 L 4,0 L -4,0 Z" fill="#EF4444" />
+                    <path d="M 0,13 L 4,0 L -4,0 Z" fill="#1E1B18" />
+                    <text x="-4" y="-17" font-family="'Patrick Hand'" font-size="11" font-weight="bold">N</text>
+                  </g>
+                </g>
+
+                <!-- PATNA ZOOM CITY STREET GRID (Crossfades in as camera zooms into Patna) -->
+                <g id="patna-city-grid" class="opacity-0 transition-opacity duration-300">
+                  <!-- River Ganga band -->
+                  <path d="M 180,105 C 250,115 320,95 390,110 C 450,120 490,105 540,115" stroke="#7DD3FC" stroke-width="16" fill="none" stroke-linecap="round" />
+                  <text x="310" y="88" font-family="'Caveat'" font-size="15" fill="#0284C7" font-weight="bold">🌊 River Ganga</text>
+                  
+                  <!-- Patna City Roads -->
+                  <!-- Bailey Road -->
+                  <path d="M 220,165 Q 310,178 400,188 Q 480,195 510,200" stroke="#E2E8F0" stroke-width="10" stroke-linecap="round" fill="none" />
+                  <path d="M 220,165 Q 310,178 400,188 Q 480,195 510,200" stroke="#64748B" stroke-width="2" stroke-dasharray="5,4" fill="none" />
+                  <text x="228" y="154" font-family="'Patrick Hand'" font-size="11" fill="#475569" font-weight="bold">Bailey Road</text>
+
+                  <!-- Boring Canal Road -->
+                  <path d="M 285,125 Q 295,168 305,210" stroke="#CBD5E1" stroke-width="7" stroke-linecap="round" fill="none" />
+                  <text x="245" y="132" font-family="'Patrick Hand'" font-size="11" fill="#334155" font-weight="bold">Boring Road</text>
+
+                  <!-- Kankarbagh Main Road -->
+                  <path d="M 375,190 Q 415,230 450,250" stroke="#CBD5E1" stroke-width="7" stroke-linecap="round" fill="none" />
+                  <text x="415" y="240" font-family="'Patrick Hand'" font-size="11" fill="#334155" font-weight="bold">Kankarbagh</text>
+
+                  <!-- Local Golghar Monument Doodle -->
+                  <g transform="translate(365, 140)">
+                    <path d="M -12,12 C -12,-6 12,-6 12,12 Z" fill="#FEF08A" stroke="#1E1B18" stroke-width="1.8" />
+                    <text x="-14" y="24" font-family="'Patrick Hand'" font-size="10" fill="#1E1B18">Golghar</text>
+                  </g>
+                </g>
+
+                <!-- Dotted Journey Track Lines -->
+                <!-- 1. Baroda to Ranchi -->
+                <path d="M 175,235 C 220,240 280,230 330,225" stroke="#1E1B18" stroke-width="2.8" stroke-dasharray="6,6" fill="none" stroke-linecap="round" />
+                <!-- 2. Ranchi to Patna -->
+                <path d="M 330,225 C 335,200 340,185 345,165" stroke="#1E1B18" stroke-width="2.8" stroke-dasharray="6,6" fill="none" stroke-linecap="round" />
+                <!-- 3. Patna Local Cycle Tracks -->
+                <path d="M 285,145 C 300,175 340,180 375,190 C 410,200 435,230 445,245" stroke="#10B981" stroke-width="3.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round" opacity="0.6" />
+                <!-- 4. Patna to Bangalore flight path -->
+                <path d="M 345,165 C 370,250 330,310 255,360" stroke="#3B82F6" stroke-width="3" stroke-dasharray="7,6" fill="none" stroke-linecap="round" opacity="0.45" />
+
+                <!-- City Pins -->
+                <!-- Pin: Baroda -->
+                <g transform="translate(175, 235)">
+                  <circle cx="0" cy="0" r="7" fill="#F87171" stroke="#1E1B18" stroke-width="2" />
+                  <text x="-48" y="4" font-family="'Caveat'" font-size="17" font-weight="bold" fill="#1E1B18">Baroda 👶</text>
+                </g>
+
+                <!-- Pin: Ranchi -->
+                <g transform="translate(330, 225)">
+                  <circle cx="0" cy="0" r="6" fill="#FBBF24" stroke="#1E1B18" stroke-width="2" />
+                  <text x="12" y="4" font-family="'Caveat'" font-size="17" font-weight="bold" fill="#1E1B18">Ranchi 🍼</text>
+                </g>
+
+                <!-- Pin: Patna -->
+                <g transform="translate(345, 165)">
+                  <circle cx="0" cy="0" r="7" fill="#34D399" stroke="#1E1B18" stroke-width="2" />
+                  <text x="12" y="2" font-family="'Caveat'" font-size="18" font-weight="bold" fill="#047857">Patna (15 Yrs!)</text>
+                </g>
+
+                <!-- Pin: Bangalore -->
+                <g transform="translate(255, 360)">
+                  <circle cx="0" cy="0" r="8" fill="#60A5FA" stroke="#1E1B18" stroke-width="2" />
+                  <text x="-80" y="4" font-family="'Caveat'" font-size="18" font-weight="bold" fill="#1D4ED8">Bangalore 🚀</text>
+                </g>
+
+                <!-- MOVING VEHICLE SPRITE (Continuous smooth translation) -->
+                <g id="vehicle-avatar" transform="translate(175, 235)">
+                  
+                  <!-- TRAIN SPRITE -->
+                  <g id="sprite-train" class="transition-opacity duration-200">
+                    <circle cx="-12" cy="-14" r="3" fill="#E5E7EB" stroke="#1E1B18" stroke-width="1" class="animate-bounce" />
+                    <circle cx="-18" cy="-19" r="4.5" fill="#E5E7EB" stroke="#1E1B18" stroke-width="1" />
+                    <rect x="-14" y="-12" width="28" height="16" rx="3" fill="#EF4444" stroke="#1E1B18" stroke-width="2" />
+                    <rect x="-6" y="-16" width="7" height="5" fill="#1E1B18" />
+                    <rect x="-10" y="-8" width="6" height="5" fill="#FEF08A" stroke="#1E1B18" stroke-width="1" />
+                    <rect x="0" y="-8" width="8" height="5" fill="#FEF08A" stroke="#1E1B18" stroke-width="1" />
+                    <circle cx="-8" cy="5" r="3.5" fill="#374151" stroke="#1E1B18" stroke-width="1.5" />
+                    <circle cx="6" cy="5" r="3.5" fill="#374151" stroke="#1E1B18" stroke-width="1.5" />
+                  </g>
+
+                  <!-- BICYCLE SPRITE (Active in Patna) -->
+                  <g id="sprite-bicycle" class="opacity-0 transition-opacity duration-200">
+                    <circle cx="-9" cy="4" r="6.5" fill="none" stroke="#1E1B18" stroke-width="2" />
+                    <circle cx="-9" cy="4" r="1.5" fill="#1E1B18" />
+                    <circle cx="9" cy="4" r="6.5" fill="none" stroke="#1E1B18" stroke-width="2" />
+                    <circle cx="9" cy="4" r="1.5" fill="#1E1B18" />
+                    <path d="M -9,4 L 0,4 L -4,-5 L -9,4 Z" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round" />
+                    <path d="M 0,4 L 5,-4 L 9,4" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round" />
+                    <path d="M 5,-4 L 3,-8 L 7,-8" stroke="#1E1B18" stroke-width="2" stroke-linecap="round" fill="none" />
+                    <path d="M -4,-5 L -7,-6 L -1,-6" stroke="#1E1B18" stroke-width="2" stroke-linecap="round" fill="none" />
+                    <circle cx="0" cy="-12" r="3.5" fill="#FED7AA" stroke="#1E1B18" stroke-width="1.5" />
+                  </g>
+
+                  <!-- AIRPLANE SPRITE (Active toward Bangalore) -->
+                  <g id="sprite-plane" class="opacity-0 transition-opacity duration-200">
+                    <path d="M -14,2 L 14,-3 L 18,-3 C 20,-3 21,-1 19,1 L -14,6 Z" fill="#3B82F6" stroke="#1E1B18" stroke-width="2" />
+                    <path d="M -2,0 L -8,-14 L 3,-2 Z" fill="#93C5FD" stroke="#1E1B18" stroke-width="1.8" />
+                    <path d="M -2,4 L -6,14 L 3,3 Z" fill="#2563EB" stroke="#1E1B18" stroke-width="1.8" />
+                    <path d="M -12,2 L -17,-7 L -9,2 Z" fill="#1D4ED8" stroke="#1E1B18" stroke-width="1.5" />
+                    <line x1="-22" y1="-1" x2="-16" y2="-1" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                    <line x1="-24" y1="4" x2="-18" y2="4" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                  </g>
+                  
+                </g>
+
+              </svg>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-xs font-hand text-stone-500">
+              <span>Scroll down at your pace ⇣</span>
+              <span id="scroll-pct-indicator" class="font-bold text-stone-700">0% Journey</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SCROLLING STORY CARDS (Popping beside the map) -->
+        <div class="lg:col-span-5 space-y-24 py-6">
+          
+          <!-- CHAPTER 1: BARODA POP CARD -->
+          <div id="story-bubble-0" class="story-bubble active-pop p-6 sm:p-7 bg-white border-sketch-card shadow-doodle relative">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-2xl">🚂</span>
+              <span class="px-2.5 py-0.5 bg-yellow-200 border border-black font-fun text-xs font-bold rounded">Chapter 01</span>
+              <span class="text-stone-500 font-hand text-sm ml-auto">Vadodara, GJ</span>
+            </div>
+            <h3 class="font-fun text-2xl font-bold text-stone-900 mt-1">
+              Baroda, Gujarat
+            </h3>
+            
+            <!-- Exact Quote Pop Bubble -->
+            <div class="p-3.5 bg-red-50 border-sketch-tag my-3 shadow-doodle-sm">
+              <p class="font-scribble text-xl sm:text-2xl text-red-600 font-bold leading-snug">
+                “Well I was born in Baroda,Gujrat”
+              </p>
+            </div>
+
+            <p class="text-stone-700 text-sm leading-relaxed font-sans">
+              I don't remember my childhood much but my parents always remind me that I was a naughty kid. 
+            </p>
+          </div>
+
+          <!-- CHAPTER 2: RANCHI POP CARD -->
+          <div id="story-bubble-1" class="story-bubble p-6 sm:p-7 bg-white border-sketch-card shadow-doodle relative">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-2xl">🍼</span>
+              <span class="px-2.5 py-0.5 bg-amber-200 border border-black font-fun text-xs font-bold rounded">Chapter 02</span>
+              <span class="text-stone-500 font-hand text-sm ml-auto">Jharkhand</span>
+            </div>
+            <h3 class="font-fun text-2xl font-bold text-stone-900 mt-1">
+              Ranchi, Jharkhand
+            </h3>
+            
+            <!-- Exact Quote Pop Bubble -->
+            <div class="p-3.5 bg-amber-50 border-sketch-tag my-3 shadow-doodle-sm">
+              <p class="font-scribble text-xl sm:text-2xl text-amber-800 font-bold leading-snug">
+                “I spent my toddling years here,”
+              </p>
+            </div>
+
+            <p class="text-stone-700 text-sm leading-relaxed font-sans">
+              I have vivid memories of cycling across the streets of our colony, rushing to meet my bua and crying when someone took my toy. I remeber that tree which to a 3 year me used to look so big , that dog on which I cycled by mistake and that party which I gate crashed in confusion.
+            </p>
+          </div>
+
+          <!-- CHAPTER 3: PATNA (15 YEARS & CYCLE DEEP ZOOM) -->
+          <div id="story-bubble-2" class="story-bubble p-6 sm:p-8 bg-white border-sketch-card shadow-doodle relative">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-2xl">🚲</span>
+              <span class="px-2.5 py-0.5 bg-emerald-200 border border-black font-fun text-xs font-bold rounded">Chapter 03 • The Big Zoom</span>
+              <span class="text-stone-500 font-hand text-sm ml-auto">15 Years</span>
+            </div>
+            <h3 class="font-fun text-2xl font-bold text-stone-900 mt-1">
+              Patna, Bihar
+            </h3>
+            
+            <!-- Exact Quote Pop Bubble -->
+            <div class="p-4 bg-emerald-50 border-sketch-tag my-3 shadow-doodle-sm border-2 border-black">
+              <p class="font-scribble text-xl sm:text-2xl text-emerald-950 font-bold leading-relaxed">
+                “I lived most well 15 years of my life in this city ,as a kid I wanted to take history was kinda good in it but then my parents made me choose PCM and well i did likes coding and always wanted to have a startup”
+              </p>
+            </div>
+
+            <p class="text-stone-700 text-sm leading-relaxed font-sans mb-3">
+              Notice the map zoom into Patna's neighborhoods! I couldn't fit all of my areas on this map but these are the top ones
+            </p>
+
+            <div class="space-y-2 font-hand text-sm">
+              <div class="p-2.5 bg-stone-100 rounded-lg border border-stone-300 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span><strong>Boring Road:</strong> My coaching was here</span>
+              </div>
+              <div class="p-2.5 bg-stone-100 rounded-lg border border-stone-300 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span><strong>Bailey Road:</strong> My house was near Paras hospital </span>
+              </div>
+              <div class="p-2.5 bg-stone-100 rounded-lg border border-stone-300 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span><strong>Danapur:</strong> My school was here </span>
+              </div>
+            </div>
+          </div>
+
+          <div id="story-bubble-3" class="story-bubble p-6 sm:p-7 bg-white border-sketch-card shadow-doodle relative">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-2xl">✈️</span>
+              <span class="px-2.5 py-0.5 bg-blue-200 border border-black font-fun text-xs font-bold rounded">Chapter 04 • Present Day</span>
+              <span class="text-stone-500 font-hand text-sm ml-auto">Bengaluru</span>
+            </div>
+            <h3 class="font-fun text-2xl font-bold text-stone-900 mt-1">
+              Bangalore, Karnataka
+            </h3>
+            
+            <!-- Exact Quote Pop Bubble -->
+            <div class="p-4 bg-blue-50 border-sketch-tag my-3 shadow-doodle-sm border-2 border-black">
+              <p class="font-scribble text-xl sm:text-2xl text-blue-950 font-bold leading-relaxed">
+                “Well now I'm here in Blr and hopefully I will start replacing the stupid stuff here with my projects , acheivement and all”
+              </p>
+            </div>
+
+            <p class="text-stone-700 text-sm leading-relaxed font-sans">
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-28 p-6 sm:p-8 bg-amber-50 border-sketch-card shadow-doodle text-center relative overflow-hidden">
+      <div class="washi-tape"></div>
+      <div class="max-w-xl mx-auto space-y-4">
+        <h3 class="font-fun text-2xl sm:text-3xl font-bold">
+          "Trying as hard as one could"
+        </h3>
+        <p class="font-hand text-xl text-stone-700">
+          Want to discuss books, collaborate on code, or chat about tech startups? Let's connect!
+        </p>
+        <div class="flex flex-wrap justify-center gap-3 pt-2">
+          <button onclick="copyEmail(this)" class="px-4 py-2 bg-white border-2 border-black rounded-lg font-hand font-bold text-base shadow-doodle-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center gap-2">
+            <i data-lucide="copy" class="w-4 h-4 text-stone-600"></i>
+            <span>Copy: kaniskgautam13@gmail.com</span>
+          </button>
+       
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 py-12 text-center font-hand text-stone-500 border-t border-stone-200 mt-16">
+    <div class="flex justify-center items-center gap-2 mb-2 font-scribble text-xl text-stone-700">
+      <span>Doodles from</span>
+      <a href="https://www.thedoodlelibrary.com" target="_blank" rel="noopener noreferrer" class="underline hover:text-black font-bold">The Doodle Library</a>
+      <span>• Handcrafted for Kanisk</span>
+    </div>
+    <p class="text-xs text-stone-400">
+      
+  </footer>
+
+  <script>
+    // Initialize icons
+    lucide.createIcons();
+
+    // Fallback handler if external Doodle SVG is blocked
+    function handleDoodleFallback(img, text) {
+      img.onerror = null;
+      img.src = "data:image/svg+xml;utf8," + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none" stroke="#1E1B18" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="20" y="20" width="200" height="140" rx="16" fill="#FEF08A" />
+          <circle cx="80" cy="80" r="10" fill="#1E1B18" />
+          <circle cx="160" cy="80" r="10" fill="#1E1B18" />
+          <path d="M 90 115 Q 120 135 150 115" stroke-width="3" />
+          <text x="120" y="150" font-family="'Patrick Hand', cursive" font-size="14" font-weight="bold" text-anchor="middle" fill="#1E1B18">${text}</text>
+        </svg>
+      `);
+    }
+
+    /* =========================================================
+       SMOOTH SCROLLYTELLING & LERP MAP SYSTEM
+       ========================================================= */
+
+    // Keyframes for the journey map
+    // Stage 0: Baroda (Gujarat) - 0.0
+    // Stage 1: Ranchi (Jharkhand) - 0.33
+    // Stage 2: Patna (Bihar Zoomed) - 0.66
+    // Stage 3: Bangalore (Karnataka) - 1.0
+    const keyframes = [
+      {
+        progress: 0.0,
+        title: "Baroda, Gujarat",
+        vehicle: "🚂 Indian Railways",
+        type: "train",
+        coords: { x: 175, y: 235 },
+        viewBox: { x: 0, y: 0, w: 600, h: 450 },
+        patnaGridOpacity: 0
+      },
+      {
+        progress: 0.33,
+        title: "Ranchi, Jharkhand",
+        vehicle: "🚂 Indian Railways",
+        type: "train",
+        coords: { x: 330, y: 225 },
+        viewBox: { x: 0, y: 0, w: 600, h: 450 },
+        patnaGridOpacity: 0
+      },
+      {
+        progress: 0.66,
+        title: "Patna, Bihar (15 Years!)",
+        vehicle: "🚲 Cycling through Boring & Bailey Rd",
+        type: "cycle",
+        coords: { x: 360, y: 185 }, // Center of Patna local streets
+        // Zoomed-in Camera Box over Patna:
+        viewBox: { x: 200, y: 70, w: 320, h: 240 },
+        patnaGridOpacity: 1
+      },
+      {
+        progress: 1.0,
+        title: "Bangalore, Karnataka",
+        vehicle: "✈️ Flight south to BLR",
+        type: "plane",
+        coords: { x: 255, y: 360 },
+        viewBox: { x: 0, y: 0, w: 600, h: 450 },
+        patnaGridOpacity: 0
+      }
+    ];
+
+    // Lerp helper
+    function lerp(start, end, t) {
+      return start + (end - start) * t;
+    }
+
+    const svg = document.getElementById('interactive-map-svg');
+    const avatar = document.getElementById('vehicle-avatar');
+    const stageTitle = document.getElementById('current-stage-title');
+    const vehicleIndicator = document.getElementById('vehicle-indicator');
+    const patnaGrid = document.getElementById('patna-city-grid');
+    const scrollPct = document.getElementById('scroll-pct-indicator');
+
+    const trainSprite = document.getElementById('sprite-train');
+    const cycleSprite = document.getElementById('sprite-bicycle');
+    const planeSprite = document.getElementById('sprite-plane');
+
+    const bubbles = [
+      document.getElementById('story-bubble-0'),
+      document.getElementById('story-bubble-1'),
+      document.getElementById('story-bubble-2'),
+      document.getElementById('story-bubble-3')
+    ];
+
+    let targetProgress = 0;
+    let currentProgress = 0;
+
+    // Calculate normalized progress (0 to 1) based on the story cards container
+    function updateScrollProgress() {
+      const wrapper = document.getElementById('scrolly-wrapper');
+      if (!wrapper) return;
+
+      const rect = wrapper.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Start when wrapper enters center, complete when last card passes
+      const startY = rect.top - (windowHeight * 0.4);
+      const totalScrollable = rect.height - (windowHeight * 0.5);
+
+      if (totalScrollable <= 0) return;
+
+      let p = -startY / totalScrollable;
+      p = Math.max(0, Math.min(1, p));
+      targetProgress = p;
+    }
+
+    // Animation loop with smooth 60fps LERP damping
+    function tick() {
+      // Damping factor for ultra smooth feel
+      currentProgress += (targetProgress - currentProgress) * 0.085;
+
+      // Find active keyframe interval
+      let segmentIndex = 0;
+      for (let i = 0; i < keyframes.length - 1; i++) {
+        if (currentProgress >= keyframes[i].progress && currentProgress <= keyframes[i + 1].progress) {
+          segmentIndex = i;
+          break;
+        }
+      }
+      if (currentProgress >= keyframes[keyframes.length - 1].progress) {
+        segmentIndex = keyframes.length - 2;
+      }
+
+      const k1 = keyframes[segmentIndex];
+      const k2 = keyframes[segmentIndex + 1];
+
+      const segmentSpan = k2.progress - k1.progress;
+      const localT = Math.max(0, Math.min(1, (currentProgress - k1.progress) / segmentSpan));
+
+      // Interpolate viewBox camera
+      const vx = lerp(k1.viewBox.x, k2.viewBox.x, localT);
+      const vy = lerp(k1.viewBox.y, k2.viewBox.y, localT);
+      const vw = lerp(k1.viewBox.w, k2.viewBox.w, localT);
+      const vh = lerp(k1.viewBox.h, k2.viewBox.h, localT);
+      svg.setAttribute('viewBox', `${vx} ${vy} ${vw} ${vh}`);
+
+      // Interpolate Vehicle Position
+      const cx = lerp(k1.coords.x, k2.coords.x, localT);
+      const cy = lerp(k1.coords.y, k2.coords.y, localT);
+      avatar.setAttribute('transform', `translate(${cx}, ${cy})`);
+
+      // Interpolate Patna City Grid overlay
+      const gridOpacity = lerp(k1.patnaGridOpacity, k2.patnaGridOpacity, localT);
+      patnaGrid.style.opacity = gridOpacity;
+
+      // Active vehicle sprite switch
+      const activeStage = localT < 0.5 ? k1 : k2;
+      stageTitle.innerText = activeStage.title;
+      vehicleIndicator.innerText = activeStage.vehicle;
+
+      trainSprite.classList.add('opacity-0');
+      cycleSprite.classList.add('opacity-0');
+      planeSprite.classList.add('opacity-0');
+
+      if (activeStage.type === 'train') {
+        trainSprite.classList.remove('opacity-0');
+      } else if (activeStage.type === 'cycle') {
+        cycleSprite.classList.remove('opacity-0');
+      } else if (activeStage.type === 'plane') {
+        planeSprite.classList.remove('opacity-0');
+      }
+
+      // Update percent readout
+      scrollPct.innerText = `${Math.round(currentProgress * 100)}% Journey`;
+
+      // Update Popping Story Bubbles on the right
+      const activeBubbleIndex = Math.min(3, Math.floor(currentProgress * 3.99));
+      bubbles.forEach((b, idx) => {
+        if (!b) return;
+        if (idx === activeBubbleIndex) {
+          b.classList.add('active-pop');
+        } else {
+          b.classList.remove('active-pop');
+        }
+      });
+
+      requestAnimationFrame(tick);
+    }
+
+    // Email Copy helper
+    function copyEmail(btn) {
+      const email = 'kanisk.builds@gmail.com';
+      const textSpan = document.getElementById('copy-btn-text');
+      
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      textSpan.innerText = 'Copied! 🎉';
+      setTimeout(() => {
+        textSpan.innerText = email;
+      }, 2400);
+    }
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress);
+
+    // Start engine
+    updateScrollProgress();
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

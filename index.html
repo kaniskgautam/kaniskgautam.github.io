@@ -1,49 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kanisk — 19 y/o CS Student & Maker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nudge Focus — AI-Powered Smart Focus & Distraction Blocker</title>
   
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Google Fonts: Gaegu, Caveat, Patrick Hand, Quicksand, Shantell Sans -->
+  <!-- Google Fonts: Kalam & Gaegu for handwritten authentic look, Inter for UI -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&family=Quicksand:wght@500;600;700&family=Shantell+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Inter:wght@400;500;600;700;800&family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            hand: ['"Patrick Hand"', 'cursive'],
-            scribble: ['"Caveat"', 'cursive'],
-            sans: ['"Quicksand"', 'sans-serif'],
-            fun: ['"Shantell Sans"', 'cursive'],
-          },
           colors: {
-            doodle: {
-              ink: '#1E1B18',
-              bg: '#FAF8F5',
-              paper: '#FFFDF9',
-              yellow: '#FEF08A',
-              pink: '#FBCFE8',
-              blue: '#BAE6FD',
-              green: '#BBF7D0',
-              peach: '#FED7AA',
-              purple: '#DDD6FE',
-            }
+            cream: {
+              50: '#fdfbf7',
+              100: '#fcfaf4',
+              200: '#f7f3eb',
+              300: '#eee8dc'
+            },
+            sketchDark: '#121216',
+            cardDark: '#1a1a20',
+            nudgeYellow: '#ffe885',
+            nudgeRed: '#ff5c5c',
+            nudgeGreen: '#5cdbb5'
+          },
+          fontFamily: {
+            hand: ['"Kalam"', '"Gaegu"', 'cursive'],
+            script: ['"Patrick Hand"', 'cursive'],
+            sans: ['"Inter"', 'sans-serif']
           },
           boxShadow: {
-            'doodle': '4px 4px 0px #1E1B18',
-            'doodle-lg': '8px 8px 0px #1E1B18',
-            'doodle-sm': '2px 2px 0px #1E1B18',
-            'doodle-pop': '6px 6px 0px #1E1B18',
+            'sketch': '3px 3px 0px #000000',
+            'sketch-sm': '2px 2px 0px #000000',
+            'sketch-lg': '5px 5px 0px #000000',
+            'sketch-dark': '3px 3px 0px #3f3f46'
           }
         }
       }
@@ -51,857 +46,1640 @@
   </script>
 
   <style>
+    /* Squiggly underline recreation from screenshots */
+    .squiggly {
+      text-decoration: underline wavy #eab308 2.5px;
+      text-underline-offset: 4px;
+    }
+    .squiggly-red {
+      text-decoration: underline wavy #ef4444 2.5px;
+      text-underline-offset: 4px;
+    }
     
-    body {
-      background-color: #FAF8F5;
-      background-image: 
-        radial-gradient(#d1d5db 1.2px, transparent 1.2px),
-        radial-gradient(#e5e7eb 1.2px, #faf8f5 1.2px);
-      background-size: 26px 26px;
-      background-position: 0 0, 13px 13px;
-      color: #1E1B18;
+    /* Neobrutalist custom borders and controls */
+    .sketch-border {
+      border: 2px solid #1a1a1a;
+    }
+    .sketch-border-dashed {
+      border: 2px dashed #333333;
+    }
+    .sketch-border-dashed-light {
+      border: 2px dashed #9ca3af;
     }
 
-    /* Hand-drawn borders */
-    .border-sketch {
-      border: 2.5px solid #1E1B18;
-      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-    }
-
-    .border-sketch-card {
-      border: 2.5px solid #1E1B18;
-      border-radius: 24px 6px 26px 8px / 8px 26px 6px 24px;
-    }
-
-    .border-sketch-tag {
-      border: 2px solid #1E1B18;
-      border-radius: 12px 4px 14px 5px / 5px 14px 4px 12px;
-    }
-
-    /* Washi tape accents */
-    .washi-tape {
-      background: rgba(254, 240, 138, 0.85);
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-2deg);
-      width: 90px;
-      height: 24px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-      clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%, 2% 50%);
-    }
-
-    /* Story Card Pop States */
-    .story-bubble {
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      opacity: 0.35;
-      transform: scale(0.95) translateX(-8px);
-    }
-
-    .story-bubble.active-pop {
-      opacity: 1 !important;
-      transform: scale(1.02) translateX(0px) !important;
-      box-shadow: 8px 8px 0px #1E1B18 !important;
-      border-color: #1E1B18 !important;
-    }
-
-    /* Trail animation */
-    .journey-path {
-      stroke-dasharray: 6, 6;
-      animation: dashMove 14s linear infinite;
-    }
-
-    @keyframes dashMove {
-      to {
-        stroke-dashoffset: -120;
-      }
-    }
-
-    /* Custom scrollbar */
+    /* Custom scrollbars */
     ::-webkit-scrollbar {
-      width: 9px;
+      width: 6px;
+      height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #FAF8F5;
+      background: #f1ede5;
     }
     ::-webkit-scrollbar-thumb {
-      background: #1E1B18;
-      border-radius: 6px;
-      border: 2px solid #FAF8F5;
+      background: #c7c0b0;
+      border-radius: 4px;
+    }
+
+    /* Modal Backdrop Blur */
+    .backdrop-nudge {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* Pulsing animations */
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    .gentle-bounce {
+      animation: gentlePulse 2s infinite ease-in-out;
     }
   </style>
 </head>
+<body class="bg-[#f7f4ec] text-[#1c1917] font-sans antialiased selection:bg-yellow-200 min-h-screen">
 
-<body class="font-sans antialiased text-[#1E1B18] overflow-x-hidden selection:bg-yellow-300 selection:text-black">
-
-  <header class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-4 flex items-center justify-between">
-    <div class="flex items-center gap-2 group cursor-pointer">
-      <div class="w-11 h-11 rounded-full bg-yellow-200 border-2 border-black flex items-center justify-center font-scribble text-2xl font-bold shadow-doodle-sm transform group-hover:-rotate-12 transition">
-        K
+  <!-- Top Navigation Header -->
+  <nav class="sticky top-0 z-40 bg-[#fdfbf7]/90 backdrop-blur-md border-b-2 border-stone-900 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-sm">
+    <div class="flex items-center space-x-3">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border-2 border-stone-900 bg-white font-hand font-bold text-lg text-stone-900 shadow-sketch-sm">
+        <span>✏️</span> Nudge Focus
       </div>
-      <div>
-        <span class="font-fun text-xl font-bold tracking-tight">Kanisk.doodle</span>
-        <span class="text-xs block text-stone-500 font-hand -mt-1">19 y/o • student notebook</span>
-      </div>
+      <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-200 text-stone-900 border-2 border-stone-900 shadow-sketch-sm">
+        🚧 Private Beta (Unreleased)
+      </span>
     </div>
 
-    <!-- Quick Links -->
-    <nav class="flex items-center gap-3">
-      <a href="#working-on" class="hidden sm:inline-flex items-center gap-1.5 font-hand text-lg hover:underline font-bold px-3 py-1 bg-white border-2 border-black rounded-lg shadow-doodle-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
-        <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i> Working On
-      </a>
-      <a href="#life-journey" class="font-hand text-lg font-bold px-4 py-1.5 bg-yellow-300 border-2 border-black rounded-lg shadow-doodle hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-doodle-sm transition flex items-center gap-2">
-        <i data-lucide="compass" class="w-4 h-4"></i>
-        <span>My Journey Map</span>
-      </a>
-    </nav>
-  </header>
+    <!-- Quick action links -->
+    <div class="flex items-center gap-3">
+      <button onclick="scrollToProof()" class="hidden md:flex items-center gap-1 text-sm font-semibold px-3 py-1.5 hover:text-stone-950 text-stone-600 transition">
+        📸 View Screenshot Proof
+      </button>
+      <button onclick="openWaitlistModal()" class="px-4 py-1.5 bg-[#ffe885] hover:bg-[#ffd952] active:translate-x-0.5 active:translate-y-0.5 text-stone-900 border-2 border-stone-900 font-bold rounded-xl shadow-sketch-sm transition text-sm flex items-center gap-2">
+        <span>🎟️ Join Waitlist</span>
+      </button>
+    </div>
+  </nav>
 
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-12">
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
+  <!-- Hero Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-14 lg:pt-14">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
       
-      <!-- Left Column: Honest Bio & Skill Badges -->
-      <div class="lg:col-span-7 space-y-6">
-        <div class="inline-flex items-center gap-2 bg-pink-100 border-2 border-black px-3.5 py-1 rounded-full text-sm font-hand font-bold shadow-doodle-sm transform -rotate-1">
-          <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
-          <span>Open to learning & crazy startup ideas</span>
+      <!-- Left Column: Copy & Value Proposition -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 text-stone-900 border-2 border-stone-900 rounded-full text-xs sm:text-sm font-hand font-bold shadow-sketch-sm">
+          <span>🔒</span> Coming Soon &bull; Invites Rolling Out in Batches
         </div>
 
-       
-        <div class="relative">
-          <h1 class="font-fun text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
-            Hi, I'm <span class="bg-yellow-200 px-2.5 py-0.5 border-sketch inline-block transform -rotate-1">Kanisk</span>
-          </h1>
-          
-          <div class="mt-4 p-5 sm:p-6 bg-white border-sketch-card shadow-doodle-pop relative">
-            <div class="washi-tape"></div>
-            <p class="font-fun text-xl sm:text-2xl text-stone-900 leading-relaxed font-semibold">
-              “Hi , I'm Kanisk a 19 year old CS student who mayn't be the smartest kid on earth but is surely trying as hard as one could”
-            </p>
-            <div class="mt-3.5 pt-3 border-t-2 border-dashed border-stone-200 flex flex-wrap items-center justify-between gap-2 text-stone-600 font-hand text-base sm:text-lg">
-              <span class="flex items-center gap-1.5 font-bold text-stone-800">
-                <i data-lucide="terminal" class="w-4 h-4 text-emerald-600"></i> Currently in sem 1 . 
-              <span class="italic text-stone-500">I also love reading 📚, so if u ever meet me irl pls suggest me some good books.
-              </span></span>
-            </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-stone-900 tracking-tight leading-tight">
+          Stop doomscrolling with <span class="font-hand font-normal text-amber-900 underline decoration-wavy decoration-amber-400 decoration-3">sassy AI nudges</span>.
+        </h1>
+
+        <p class="text-base sm:text-lg text-stone-700 leading-relaxed max-w-xl">
+          Traditional site blockers are bypassed in seconds. <strong>Nudge Focus</strong> catches you when you open Reddit or YouTube and serves a tailored, playful psychological intervention customized to the exact task you committed to doing.
+        </p>
+
+        <!-- Feature bullet badges -->
+        <div class="flex flex-wrap gap-2 text-sm">
+          <span class="px-3 py-1 bg-white border-2 border-stone-900 rounded-lg shadow-sketch-sm font-medium flex items-center gap-1.5">
+            <span class="text-red-500">🚫</span> Cognitive Interrupts
+          </span>
+          <span class="px-3 py-1 bg-white border-2 border-stone-900 rounded-lg shadow-sketch-sm font-medium flex items-center gap-1.5">
+            <span class="text-amber-500">📅</span> Tagged Focus Calendar
+          </span>
+          <span class="px-3 py-1 bg-purple-100 border-2 border-stone-900 rounded-lg shadow-sketch-sm font-medium flex items-center gap-1.5">
+            <span class="text-purple-600">🤖</span> AI Tone Engine
+          </span>
+        </div>
+
+        <!-- Waitlist Email Inline Box -->
+        <div class="p-4 sm:p-5 bg-white border-2 border-stone-900 rounded-2xl shadow-sketch max-w-lg">
+          <div class="font-hand font-bold text-lg text-stone-900 mb-1 flex items-center justify-between">
+            <span>Get Early Access when we launch</span>
+            <span class="text-xs font-sans font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded border border-amber-300">Beta v0.9</span>
           </div>
+          <p class="text-xs text-stone-600 mb-3">Join 850+ early testers. Leave your email to receive direct beta access from kanisk:</p>
+          <form onsubmit="handleInlineWaitlist(event)" class="flex flex-col sm:flex-row gap-2">
+            <input type="email" id="inline-waitlist-email" required placeholder="Enter your email address..." class="flex-1 px-3.5 py-2.5 bg-stone-50 border-2 border-stone-900 rounded-xl text-sm font-medium text-stone-900 focus:outline-none focus:bg-white shadow-sm">
+            <button type="submit" class="px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white font-bold rounded-xl text-sm transition shadow-sketch-sm flex items-center justify-center gap-1.5">
+              <span>Join Waitlist</span> <span>🚀</span>
+            </button>
+          </form>
         </div>
 
-        <p class="text-stone-700 text-base md:text-lg font-medium leading-relaxed font-sans">
-          Building my technical foundation brick by brick. I'm currently learning C and have learnt Python, HTML, CSS, JS  <strong>I know this is super simple but I promise I'm learning</strong>
-        <div class="flex flex-wrap gap-2.5 pt-1">
-          <span class="px-3 py-1 bg-yellow-100 border-sketch-tag text-sm font-hand font-bold shadow-doodle-sm">
-            🐍 Python
-          </span>
-          <span class="px-3 py-1 bg-blue-100 border-sketch-tag text-sm font-hand font-bold shadow-doodle-sm">
-            🌐 HTML / CSS(Tailwind) / JS
-          </span>
-          <span class="px-3 py-1 bg-pink-100 border-sketch-tag text-sm font-hand font-bold shadow-doodle-sm">
-            📖 Both Fiction & Non-Fiction Books
-          </span>
-          <span class="px-3 py-1 bg-green-100 border-sketch-tag text-sm font-hand font-bold shadow-doodle-sm">
-            💡 Aspiring Founder(hopefully)
-          </span>
-        </div>
-
-        <!-- Action buttons -->
-        <div class="flex flex-wrap items-center gap-4 pt-2">
-          <a  class="px-6 py-3 bg-black text-white font-fun font-bold text-base rounded-xl border-2 border-black shadow-doodle hover:bg-stone-800 hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-doodle-sm transition flex items-center gap-2">
-            <span>Do mail me if u have suggestions for me</span>
-            <i data-lucide="arrow-down" class="w-4 h-4"></i>
-          </a>
-          <button onclick="copyEmail(this)" class="px-5 py-3 bg-white font-fun font-bold text-base text-black rounded-xl border-2 border-black shadow-doodle hover:bg-amber-50 hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-doodle-sm transition flex items-center gap-2">
-            <i data-lucide="mail" class="w-4 h-4 text-blue-500"></i>
-            <span id="copy-btn-text">kaniskgautam13@gmail.com</span>
+        <!-- Quick actions -->
+        <div class="pt-1 flex items-center gap-3">
+          <button onclick="scrollToProof()" class="text-sm font-bold text-stone-900 underline underline-offset-4 hover:text-amber-900 flex items-center gap-1">
+            <span>📸 Inspect App Screenshots & Proof Below</span> <span>↓</span>
           </button>
         </div>
       </div>
 
-      
-      <div class="lg:col-span-5 flex justify-center">
-        <div class="relative w-full max-w-sm sm:max-w-md">
-          <div class="absolute inset-0 bg-yellow-200 border-sketch rounded-3xl transform rotate-3 shadow-doodle"></div>
-          
-          <div class="relative bg-white border-2 border-black rounded-3xl p-6 shadow-doodle overflow-hidden group">
-            <div class="absolute top-3 right-4 font-hand text-xl text-amber-500 select-none animate-pulse">✦ ✨ ✦</div>
-            <div class="absolute bottom-3 left-4 font-hand text-xs text-stone-400">the doodle library </div>
-
-            <div class="flex items-center justify-center p-3 min-h-[280px]">
-              <img 
-                id="hero-doodle-img"
-                src="https://cdn.prod.website-files.com/5a7edf0d432d43000114d381/65ef9776508a20cb1251e032_AI.svg" 
-                alt="AI Doodle Illustration" 
-                class="w-64 h-64 object-contain mx-auto transform group-hover:scale-105 group-hover:-rotate-1 transition duration-300"
-                onerror="handleDoodleFallback(this, 'AI Exploration')"
-              />
-            </div>
-
-            <div class="mt-2 text-center border-t-2 border-dashed border-stone-300 pt-3">
-              <span class="font-hand text-lg font-bold text-stone-800 bg-purple-100 px-3 py-1 rounded-full border border-black">
-                🤖 "Me in maths class"
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="working-on" class="mt-24 pt-8">
-      <div class="text-center max-w-xl mx-auto mb-12">
-        <span class="font-scribble text-2xl text-pink-600 block -rotate-3">daily log & active quests</span>
-        <h2 class="font-fun text-3xl sm:text-4xl font-extrabold mt-1">
-          Currently Working On
-        </h2>
-        <div class="w-24 h-1.5 bg-black mx-auto mt-2 rounded-full"></div>
-        <p class="font-hand text-xl text-stone-600 mt-2">
-          *I'm just trying to do all three.
-        </p>
-      </div>
-
-      <!-- 3 Columns -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Right Column: Dedicated Screenshot Proof Frame -->
+      <div id="simulator-section" class="lg:col-span-6 flex flex-col items-center">
         
-        <div class="bg-white border-sketch-card p-6 shadow-doodle flex flex-col justify-between relative group hover:-translate-y-1.5 transition duration-200">
-          <div class="washi-tape" style="background: rgba(186, 230, 253, 0.85);"></div>
+        <!-- Controls pill for selecting which screenshot to view -->
+        <div class="w-full max-w-md mb-3 flex items-center justify-between bg-stone-200/90 p-1.5 rounded-2xl border-2 border-stone-900 shadow-sketch-sm text-xs font-semibold">
+          <span class="text-stone-700 px-2 font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
+            <span>📷</span> Proof:
+          </span>
+          <div class="flex gap-1 overflow-x-auto" id="screenshot-tabs">
+            <button onclick="showScreenshot('focus-lock')" id="tab-ss-focus-lock" class="px-2.5 py-1 rounded-xl bg-stone-900 text-white font-bold shadow-sm transition whitespace-nowrap">Focus Lock</button>
+            <button onclick="showScreenshot('new-task')" id="tab-ss-new-task" class="px-2.5 py-1 rounded-xl hover:bg-white text-stone-800 transition whitespace-nowrap">New Task</button>
+            <button onclick="showScreenshot('calendar')" id="tab-ss-calendar" class="px-2.5 py-1 rounded-xl hover:bg-white text-stone-800 transition whitespace-nowrap">Calendar</button>
+            <button onclick="showScreenshot('nudge-modal')" id="tab-ss-nudge-modal" class="px-2.5 py-1 rounded-xl hover:bg-white text-stone-800 transition whitespace-nowrap">AI Nudge</button>
+          </div>
+        </div>
+
+        <!-- Extension Screenshot Outer Frame -->
+        <div class="w-full max-w-[420px] rounded-3xl border-4 border-stone-900 shadow-sketch-lg overflow-hidden flex flex-col bg-[#fdfbf7] relative">
           
-          <div>
-            <div class="flex items-center justify-between border-b-2 border-stone-100 pb-3 mb-4">
-              <span class="px-2.5 py-0.5 bg-blue-100 border border-black rounded font-fun text-xs font-bold uppercase tracking-wider">
-                Focus 01
-              </span>
-              <span class="font-hand text-stone-500 text-sm">Computer Science</span>
+          <!-- Browser Mock Bar -->
+          <div class="bg-stone-900 text-stone-300 px-4 py-2 flex items-center justify-between text-xs select-none">
+            <div class="flex items-center space-x-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
             </div>
-
-            <div class="h-44 flex items-center justify-center p-2 bg-sky-50/60 rounded-xl border border-stone-200 mb-4 overflow-hidden">
-              <img 
-                src="https://cdn.prod.website-files.com/5a7edf0d432d43000114d381/6631231d88e02dcaad95d13c_writing.svg" 
-                alt="Studies doodle" 
-                class="max-h-36 max-w-full object-contain group-hover:scale-105 transition"
-                onerror="handleDoodleFallback(this, 'Writing & Studies')"
-              />
+            <div id="screenshot-status-pill" class="font-mono text-[11px] text-amber-300 font-semibold flex items-center gap-1">
+              <span>●</span> Screenshot Proof &bull; Oct 6, 2026
             </div>
-
-            <h3 class="font-fun text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
-              <span>Studies</span>
-              <span class="text-sm font-hand bg-yellow-200 px-2 py-0.5 rounded border border-black">CS Foundations</span>
-            </h3>
-
-            <p class="text-stone-700 text-sm leading-relaxed font-sans mb-4">
-              Mastering Python frameworks and libraries ,learning boring maths,chems and phy, studying algorithms, and learning electronics from ground up.
-            </p>
+            <label class="px-2 py-0.5 rounded bg-stone-800 hover:bg-stone-700 text-stone-300 text-[10px] font-mono border border-stone-700 cursor-pointer transition flex items-center gap-1" title="Upload your own image files to preview">
+              <span>📁 Drop file</span>
+              <input type="file" accept="image/*" class="hidden" onchange="loadUserScreenshot(event)">
+            </label>
           </div>
 
-          <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 font-hand text-stone-800 text-sm flex items-center gap-2">
-            
-          </div>
-        </div>
+          <!-- SCREENSHOT CONTAINER (Pure Visual Display, No Complex Form Code) -->
+          <div class="min-h-[580px] max-h-[640px] overflow-y-auto flex flex-col relative text-stone-900 select-none" id="screenshot-viewport">
 
-        <!-- CARD 2: Health (weightlifting.svg) -->
-        <div class="bg-white border-sketch-card p-6 shadow-doodle flex flex-col justify-between relative group hover:-translate-y-1.5 transition duration-200">
-          <div class="washi-tape" style="background: rgba(187, 247, 208, 0.85);"></div>
-
-          <div>
-            <div class="flex items-center justify-between border-b-2 border-stone-100 pb-3 mb-4">
-              <span class="px-2.5 py-0.5 bg-green-100 border border-black rounded font-fun text-xs font-bold uppercase tracking-wider">
-                Focus 02
-              </span>
-              <span class="font-hand text-stone-500 text-sm">Discipline</span>
+            <!-- 1. SCREENSHOT: ACTIVE FOCUS LOCK (Dark 21:01 timer) -->
+            <div id="view-ss-focus-lock" class="p-6 flex-1 flex flex-col bg-[#121216] text-white">
+              <div class="flex justify-center mb-6">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border-2 border-stone-700 bg-stone-800 font-hand font-bold text-sm tracking-wide text-white">
+                  <span>🔒</span> Focus Lock Active
+                </div>
+              </div>
+              <div class="text-center mb-1">
+                <div class="text-2xl font-hand tracking-wide text-stone-200 italic font-semibold">chemistry</div>
+              </div>
+              <div class="text-center my-3">
+                <span class="font-extrabold text-7xl font-sans tracking-tight text-white block">21:01</span>
+              </div>
+              <div class="w-full px-2 mb-6">
+                <div class="w-full bg-stone-800 rounded-full h-2 mb-1.5 overflow-hidden">
+                  <div class="bg-white h-2 rounded-full" style="width: 23%"></div>
+                </div>
+                <div class="text-right text-xs font-medium text-stone-400">23% complete</div>
+              </div>
+              <div class="border-2 border-dashed border-stone-700 rounded-2xl p-4 bg-[#18181e] mb-6">
+                <div class="flex items-center gap-1.5 font-hand font-bold text-stone-300 text-sm mb-3">
+                  <span>🚫</span> Blocked Websites (8)
+                </div>
+                <div class="flex flex-wrap gap-1.5 mb-3.5">
+                  <span class="px-2.5 py-1 bg-stone-800 border border-stone-700 rounded-full text-xs text-stone-300">youtube.com</span>
+                  <span class="px-2.5 py-1 bg-stone-800 border border-stone-700 rounded-full text-xs text-stone-300">reddit.com</span>
+                  <span class="px-2.5 py-1 bg-stone-800 border border-stone-700 rounded-full text-xs text-stone-300">instagram.com</span>
+                  <span class="px-2.5 py-1 bg-stone-800 border border-stone-700 rounded-full text-xs text-stone-300">twitter.com</span>
+                  <span class="px-2.5 py-1 bg-stone-800 border border-stone-700 rounded-full text-xs text-stone-300">x.com</span>
+                  <span class="px-2.5 py-1 bg-stone-800 border border-stone-700 rounded-full text-xs text-stone-300">tiktok.com</span>
+                  <span class="px-2.5 py-1 bg-stone-800 border border-stone-700 rounded-full text-xs text-stone-300">facebook.com</span>
+                  <span class="px-2.5 py-1 bg-stone-800 border border-stone-700 rounded-full text-xs text-stone-300">netflix.com</span>
+                </div>
+                <div class="flex gap-2">
+                  <div class="flex-1 bg-stone-900 border border-stone-700 rounded-xl px-3 py-1.5 text-xs text-stone-500">Block another site (e.g. twitch.tv)</div>
+                  <div class="px-3.5 py-1.5 bg-stone-900 border border-stone-700 rounded-xl text-xs font-bold text-stone-300">Block</div>
+                </div>
+              </div>
+              <div class="mt-auto grid grid-cols-2 gap-3 pt-2">
+                <div class="py-3 bg-[#e84141] text-white font-hand font-bold rounded-xl text-lg text-center shadow-sm">End Focus</div>
+                <div class="py-3 text-stone-300 font-hand font-bold rounded-xl text-lg text-center border-2 border-stone-700">Take Break</div>
+              </div>
+              <div class="text-center text-[11px] text-stone-500 mt-4 border-t border-stone-800 pt-2 font-mono">
+                Built by kaniskgautam.com
+              </div>
             </div>
 
-            <div class="h-44 flex items-center justify-center p-2 bg-emerald-50/60 rounded-xl border border-stone-200 mb-4 overflow-hidden">
-              <img 
-                src="https://cdn.prod.website-files.com/5a7edf0d432d43000114d381/663122f085a033ba610f46cf_weightlifting.svg" 
-                alt="Health doodle" 
-                class="max-h-36 max-w-full object-contain group-hover:scale-105 transition"
-                onerror="handleDoodleFallback(this, 'Weightlifting & Health')"
-              />
+            <!-- 2. SCREENSHOT: NEW TASK SETUP -->
+            <div id="view-ss-new-task" class="p-5 flex-1 flex flex-col bg-[#fdfbf7] hidden">
+              <div class="flex items-center justify-between pb-3 border-b border-stone-300 mb-4">
+                <span class="text-sm font-hand font-bold text-stone-800">← Back</span>
+                <h2 class="text-2xl font-hand font-bold text-stone-900">New Task</h2>
+                <div class="w-8"></div>
+              </div>
+              <div class="mb-4">
+                <label class="block text-base font-hand font-bold text-stone-800 mb-1">What do you want to get done?</label>
+                <div class="w-full px-3.5 py-2.5 bg-white border-2 border-stone-900 rounded-xl font-bold text-stone-900 text-sm shadow-sm">
+                  chemistry
+                </div>
+              </div>
+              <div class="mb-4">
+                <label class="block text-base font-hand font-bold text-stone-800 mb-1.5">Tags & Category</label>
+                <div class="p-2.5 border-2 border-dashed border-stone-900 rounded-xl flex flex-wrap items-center gap-2 bg-[#fcfaf4]">
+                  <span class="px-3 py-1 bg-[#ffe885] border-2 border-stone-900 rounded-full text-xs font-hand font-bold shadow-sketch-sm">🏷️ Learning</span>
+                  <span class="px-2.5 py-1 bg-[#ffe885] border-2 border-stone-900 rounded-full text-xs font-hand font-bold shadow-sketch-sm">#learn ✏️ ✕</span>
+                  <span class="px-2.5 py-1 bg-[#ffe885] border-2 border-stone-900 rounded-full text-xs font-hand font-bold shadow-sketch-sm">#chemistry ✏️ ✕</span>
+                  <span class="px-2.5 py-1 bg-white border-2 border-dashed border-stone-800 rounded-full text-xs font-hand font-bold text-stone-700">+ tag</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <div>
+                  <label class="block text-base font-hand font-bold text-stone-800 mb-1">Estimated (min)</label>
+                  <div class="w-full px-3 py-2 bg-white border-2 border-stone-900 rounded-xl font-bold text-stone-900 text-sm">30</div>
+                </div>
+                <div>
+                  <label class="block text-base font-hand font-bold text-stone-800 mb-1">Priority</label>
+                  <div class="w-full px-3 py-2 bg-white border-2 border-stone-900 rounded-xl font-bold text-stone-900 text-sm flex items-center justify-between">
+                    <span>🟡 Medium</span>
+                    <span class="text-xs">▼</span>
+                  </div>
+                </div>
+              </div>
+              <div class="border-t border-dashed border-stone-300 my-2"></div>
+              <div class="mb-3">
+                <label class="block text-base font-hand font-bold text-stone-800 mb-1.5">Blocking Mode</label>
+                <div class="grid grid-cols-2 p-1 bg-[#eee8dc] rounded-xl border-2 border-stone-900 gap-1 text-xs">
+                  <div class="py-2 px-2 bg-stone-900 text-white rounded-lg font-hand font-bold text-center">🚫 Block Distractions</div>
+                  <div class="py-2 px-2 text-stone-800 rounded-lg font-hand font-bold text-center">🔒 Strict: Whitelist</div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="font-hand font-bold text-base text-stone-900">🚫 Blocked Sites (8)</span>
+                  <span class="text-xs text-rose-600 underline font-semibold">Clear all</span>
+                </div>
+                <div class="p-2 border-2 border-dashed border-red-300 rounded-xl flex flex-wrap gap-1 bg-red-50/50">
+                  <span class="px-2 py-0.5 bg-red-100 text-red-800 border border-red-300 rounded-full text-xs font-semibold">youtube.com ✕</span>
+                  <span class="px-2 py-0.5 bg-red-100 text-red-800 border border-red-300 rounded-full text-xs font-semibold">reddit.com ✕</span>
+                  <span class="px-2 py-0.5 bg-red-100 text-red-800 border border-red-300 rounded-full text-xs font-semibold">instagram.com ✕</span>
+                  <span class="px-2 py-0.5 bg-red-100 text-red-800 border border-red-300 rounded-full text-xs font-semibold">twitter.com ✕</span>
+                  <span class="px-2 py-0.5 bg-red-100 text-red-800 border border-red-300 rounded-full text-xs font-semibold">tiktok.com ✕</span>
+                </div>
+              </div>
             </div>
 
-            <h3 class="font-fun text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
-              <span>Health</span>
-              <span class="text-sm font-hand bg-green-200 px-2 py-0.5 rounded border border-black">Fitness</span>
-            </h3>
-
-            <p class="text-stone-700 text-sm leading-relaxed font-sans mb-4">
-              Staying active and hitting the weights so sitting at a desk all day doesn't ruin my back. Building physical strength and mental endurance for the long startup grind ahead.
-            </p>
-          </div>
-
-          <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 font-hand text-stone-800 text-sm flex items-center gap-2">
-            
-          </div>
-        </div>
-
-        <div class="bg-white border-sketch-card p-6 shadow-doodle flex flex-col justify-between relative group hover:-translate-y-1.5 transition duration-200">
-          <div class="washi-tape" style="background: rgba(251, 207, 232, 0.85);"></div>
-
-          <div>
-            <div class="flex items-center justify-between border-b-2 border-stone-100 pb-3 mb-4">
-              <span class="px-2.5 py-0.5 bg-pink-100 border border-black rounded font-fun text-xs font-bold uppercase tracking-wider text-pink-800">
-                Focus 03
-              </span>
-              <span class="font-hand text-rose-500 font-bold text-sm">Everyday Reality</span>
+            <!-- 3. SCREENSHOT: FOCUS CALENDAR -->
+            <div id="view-ss-calendar" class="p-5 flex-1 flex flex-col bg-[#fdfbf7] hidden">
+              <div class="flex items-center gap-2 pb-3 border-b border-stone-200 mb-4">
+                <span class="text-xl">📅</span>
+                <h2 class="text-2xl font-hand font-bold text-stone-900">Focus Calendar</h2>
+              </div>
+              <div class="p-4 bg-white border-2 border-stone-900 rounded-3xl shadow-sketch-sm mb-4">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="font-hand font-bold text-lg text-stone-900">October 2026</span>
+                  <div class="flex items-center gap-1 text-xs font-bold">
+                    <span class="px-1.5 py-0.5 border border-stone-900 rounded">◀</span>
+                    <span class="px-2 py-0.5 border border-stone-900 rounded">Today</span>
+                    <span class="px-1.5 py-0.5 border border-stone-900 rounded">▶</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-7 text-center text-[11px] font-semibold text-stone-500 mb-2">
+                  <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                </div>
+                <div class="grid grid-cols-7 gap-y-1.5 text-center text-xs font-medium text-stone-800">
+                  <span class="text-stone-300 py-1">27</span><span class="text-stone-300 py-1">28</span><span class="text-stone-300 py-1">29</span><span class="text-stone-300 py-1">30</span>
+                  <span class="py-1">1</span><span class="py-1">2</span><span class="py-1">3</span>
+                  <span class="py-1">4</span><span class="py-1">5</span>
+                  <div class="py-1 bg-stone-900 text-white rounded-lg flex flex-col items-center justify-center font-bold shadow-sm">
+                    <span>6</span>
+                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full mt-0.5"></span>
+                  </div>
+                  <span class="py-1">7</span><span class="py-1">8</span><span class="py-1">9</span><span class="py-1">10</span>
+                  <span class="py-1">11</span><span class="py-1">12</span><span class="py-1">13</span><span class="py-1">14</span><span class="py-1">15</span><span class="py-1">16</span><span class="py-1">17</span>
+                </div>
+              </div>
+              <div class="p-3.5 bg-white border-2 border-stone-900 rounded-2xl shadow-sm mb-4">
+                <div class="flex items-center justify-between pb-2 border-b border-dashed border-stone-300 mb-2">
+                  <span class="font-hand font-bold text-sm text-stone-900">Tue, Oct 6</span>
+                  <span class="px-2.5 py-0.5 rounded-full border border-stone-800 text-[11px] font-semibold bg-[#fdfbf7]">10m total</span>
+                </div>
+                <div class="space-y-1 text-xs">
+                  <div class="flex justify-between"><span>🏷️ #learn</span><span class="font-mono">50% (5m)</span></div>
+                  <div class="flex justify-between"><span>🏷️ #chemistry</span><span class="font-mono">50% (5m)</span></div>
+                </div>
+              </div>
             </div>
 
-            <div class="h-44 flex items-center justify-center p-2 bg-rose-50/60 rounded-xl border border-stone-200 mb-4 overflow-hidden">
-              <img 
-                src="https://cdn.prod.website-files.com/5a7edf0d432d43000114d381/66312215501c9a591d77a6f3_stumped%20at%20work.svg" 
-                alt="Failing to study doodle" 
-                class="max-h-36 max-w-full object-contain group-hover:scale-105 transition"
-                onerror="handleDoodleFallback(this, 'Stumped at Work')"
-              />
+            <!-- 4. SCREENSHOT: AI NUDGE MODAL -->
+            <div id="view-ss-nudge-modal" class="p-6 flex-1 flex flex-col items-center justify-center bg-[#fdfbf7] text-center hidden">
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border-2 border-stone-900 bg-white font-hand font-bold text-xs shadow-sketch-sm mb-4">
+                <span>✏️</span> Nudge Focus
+              </div>
+              <div class="w-16 h-16 rounded-full border-2 border-stone-900 bg-amber-50 flex items-center justify-center text-3xl mb-3 shadow-sketch-sm">
+                😢
+              </div>
+              <h3 class="font-hand font-bold text-2xl text-stone-900 mb-3">Why are we here? 👀</h3>
+              <p class="text-stone-700 text-xs leading-relaxed max-w-xs mb-4">
+                <span class="bg-white border border-stone-900 px-2 py-0.5 rounded font-bold">ryan ✏️</span>, you're browsing <strong>reddit.com</strong> while <span class="squiggly font-bold">chemistry</span> needs your attention. Browsing reddit.com won't revise chemistry for you!
+              </p>
+              <div class="w-full border-2 border-dashed border-stone-900 rounded-xl p-2 font-hand font-bold text-xs bg-amber-50/50 mb-4">
+                Working on: chemistry
+              </div>
+              <div class="w-full space-y-2">
+                <div class="w-full py-2.5 bg-stone-900 text-white font-hand font-bold text-sm rounded-xl shadow-sketch-sm">Back to Work ✊</div>
+                <div class="w-full py-2 bg-white text-stone-700 font-semibold text-xs rounded-xl border border-stone-400">I'll be quick (3 min)</div>
+              </div>
             </div>
 
-            <h3 class="font-fun text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
-              <span>Failing to Study</span>
-              <span class="text-sm font-hand bg-pink-200 px-2 py-0.5 rounded border border-black">Honest truth</span>
-            </h3>
+            <!-- Custom User Image Render (When dropping local screenshot file) -->
+            <div id="view-user-image" class="hidden flex-1 flex items-center justify-center bg-stone-950 p-2">
+              <img id="user-uploaded-img" src="" alt="Uploaded Screenshot Proof" class="max-w-full max-h-[580px] object-contain rounded-xl shadow-lg border border-stone-700">
+            </div>
 
-            <p class="text-stone-700 text-sm leading-relaxed font-sans mb-4">
-              Opening insta,X youtube ,reddit basically everything except studing, getting trapped reading political gossip or watching news instead of doing coursework, staring blankly at a console bug, and cursing my screen .
-            </p>
           </div>
 
-          <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 font-hand text-stone-800 text-sm flex items-center gap-2">
-            
+          <!-- Bottom Navigation Bar (recreated from screenshot 2) -->
+          <div class="bg-[#fcfaf4] border-t-2 border-stone-900 px-3 py-2 flex items-center justify-around text-xs font-hand font-bold text-stone-700 shadow-inner">
+            <button onclick="showScreenshot('new-task')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition hover:text-black">
+              <span class="text-base">📋</span>
+              <span>Today</span>
+            </button>
+            <button onclick="showScreenshot('calendar')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition hover:text-black">
+              <span class="text-base">📅</span>
+              <span>Calendar</span>
+            </button>
+            <button onclick="showScreenshot('focus-lock')" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition hover:text-black">
+              <span class="text-base">🔒</span>
+              <span>Lock View</span>
+            </button>
+          </div>
+
+          <!-- Subtle watermark link bar -->
+          <div class="bg-[#f3eee3] border-t border-stone-300 text-center py-1 text-[10px] text-stone-500 font-mono">
+            Screenshot Capture &bull; Built by kaniskgautam.com
           </div>
         </div>
 
       </div>
-    </section>
-
-    <section id="life-journey" class="mt-28 relative">
-      
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <div class="inline-block bg-amber-200 border-2 border-black px-4 py-1 font-hand font-bold text-lg -rotate-2 rounded-lg shadow-doodle-sm mb-2">
-          🗺️ Continuous Scroll Journey
-        </div>
-        <h2 class="font-fun text-3xl sm:text-5xl font-extrabold tracking-tight">
-          My Life & Coordinates
-        </h2>
-        <p class="font-hand text-xl text-stone-600 mt-2">
-          Just scroll naturally. Watch the map smoothly zoom into Patna's streets and transform vehicles!
-        </p>
-      </div>
-
-      <div id="scrolly-wrapper" class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
-        <div class="lg:col-span-7 sticky top-6 z-30">
-          <div class="bg-[#FFFDF9] border-sketch-card p-4 sm:p-5 shadow-doodle-pop relative overflow-hidden">
-            <div class="washi-tape"></div>
-
-            <!-- Top live tracker banner -->
-            <div class="flex items-center justify-between border-b-2 border-stone-200 pb-3 mb-3 font-hand text-sm font-bold">
-              <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
-                <span id="current-stage-title" class="text-base sm:text-lg text-stone-900 font-fun">
-                  Baroda, Gujarat
-                </span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span id="vehicle-indicator" class="text-xs sm:text-sm bg-yellow-200 border border-black px-2.5 py-0.5 rounded-md font-hand font-bold shadow-doodle-sm">
-                  🚂 Indian Railways
-                </span>
-              </div>
-            </div>
-
-            <!-- SVG Animated Map -->
-            <div class="relative w-full aspect-[4/3] bg-[#F7F3E9] rounded-2xl border-2 border-black overflow-hidden shadow-inner">
-              
-              <!-- Subtle Paper grid inside map -->
-              <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: linear-gradient(#9ca3af 1px, transparent 1px), linear-gradient(90deg, #9ca3af 1px, transparent 1px); background-size: 20px 20px;"></div>
-
-              <!-- Main SVG Canvas -->
-              <svg 
-                id="interactive-map-svg" 
-                viewBox="0 0 600 450" 
-                class="w-full h-full select-none"
-              >
-                <!-- INDIA OVERVIEW MAP CONTOURS -->
-                <g id="india-outline" class="transition-opacity duration-300">
-                  <!-- Abstract cute Indian subcontinent outline -->
-                  <path d="M 170,110 Q 220,60 270,70 Q 320,80 340,130 Q 380,150 440,160 Q 420,200 370,220 Q 330,240 310,290 Q 280,380 250,420 Q 220,380 180,310 Q 150,260 130,220 Q 110,180 170,110 Z" 
-                        fill="#FEFDF5" stroke="#1E1B18" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
-                  
-                  <!-- Ocean Waves -->
-                  <path d="M 80,260 Q 95,255 110,260 Q 125,265 140,260" stroke="#93C5FD" stroke-width="2" fill="none" stroke-linecap="round" />
-                  <path d="M 60,300 Q 75,295 90,300 Q 105,305 120,300" stroke="#93C5FD" stroke-width="2" fill="none" stroke-linecap="round" />
-                  <path d="M 370,320 Q 385,315 400,320 Q 415,325 430,320" stroke="#93C5FD" stroke-width="2" fill="none" stroke-linecap="round" />
-
-                  <!-- Compass doodle -->
-                  <g transform="translate(470, 70)">
-                    <circle cx="0" cy="0" r="16" fill="white" stroke="#1E1B18" stroke-width="2" />
-                    <path d="M 0,-13 L 4,0 L -4,0 Z" fill="#EF4444" />
-                    <path d="M 0,13 L 4,0 L -4,0 Z" fill="#1E1B18" />
-                    <text x="-4" y="-17" font-family="'Patrick Hand'" font-size="11" font-weight="bold">N</text>
-                  </g>
-                </g>
-
-                <!-- PATNA ZOOM CITY STREET GRID (Crossfades in as camera zooms into Patna) -->
-                <g id="patna-city-grid" class="opacity-0 transition-opacity duration-300">
-                  <!-- River Ganga band -->
-                  <path d="M 180,105 C 250,115 320,95 390,110 C 450,120 490,105 540,115" stroke="#7DD3FC" stroke-width="16" fill="none" stroke-linecap="round" />
-                  <text x="310" y="88" font-family="'Caveat'" font-size="15" fill="#0284C7" font-weight="bold">🌊 River Ganga</text>
-                  
-                  <!-- Patna City Roads -->
-                  <!-- Bailey Road -->
-                  <path d="M 220,165 Q 310,178 400,188 Q 480,195 510,200" stroke="#E2E8F0" stroke-width="10" stroke-linecap="round" fill="none" />
-                  <path d="M 220,165 Q 310,178 400,188 Q 480,195 510,200" stroke="#64748B" stroke-width="2" stroke-dasharray="5,4" fill="none" />
-                  <text x="228" y="154" font-family="'Patrick Hand'" font-size="11" fill="#475569" font-weight="bold">Bailey Road</text>
-
-                  <!-- Boring Canal Road -->
-                  <path d="M 285,125 Q 295,168 305,210" stroke="#CBD5E1" stroke-width="7" stroke-linecap="round" fill="none" />
-                  <text x="245" y="132" font-family="'Patrick Hand'" font-size="11" fill="#334155" font-weight="bold">Boring Road</text>
-
-                  <!-- Kankarbagh Main Road -->
-                  <path d="M 375,190 Q 415,230 450,250" stroke="#CBD5E1" stroke-width="7" stroke-linecap="round" fill="none" />
-                  <text x="415" y="240" font-family="'Patrick Hand'" font-size="11" fill="#334155" font-weight="bold">Kankarbagh</text>
-
-                  <!-- Local Golghar Monument Doodle -->
-                  <g transform="translate(365, 140)">
-                    <path d="M -12,12 C -12,-6 12,-6 12,12 Z" fill="#FEF08A" stroke="#1E1B18" stroke-width="1.8" />
-                    <text x="-14" y="24" font-family="'Patrick Hand'" font-size="10" fill="#1E1B18">Golghar</text>
-                  </g>
-                </g>
-
-                <!-- Dotted Journey Track Lines -->
-                <!-- 1. Baroda to Ranchi -->
-                <path d="M 175,235 C 220,240 280,230 330,225" stroke="#1E1B18" stroke-width="2.8" stroke-dasharray="6,6" fill="none" stroke-linecap="round" />
-                <!-- 2. Ranchi to Patna -->
-                <path d="M 330,225 C 335,200 340,185 345,165" stroke="#1E1B18" stroke-width="2.8" stroke-dasharray="6,6" fill="none" stroke-linecap="round" />
-                <!-- 3. Patna Local Cycle Tracks -->
-                <path d="M 285,145 C 300,175 340,180 375,190 C 410,200 435,230 445,245" stroke="#10B981" stroke-width="3.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round" opacity="0.6" />
-                <!-- 4. Patna to Bangalore flight path -->
-                <path d="M 345,165 C 370,250 330,310 255,360" stroke="#3B82F6" stroke-width="3" stroke-dasharray="7,6" fill="none" stroke-linecap="round" opacity="0.45" />
-
-                <!-- City Pins -->
-                <!-- Pin: Baroda -->
-                <g transform="translate(175, 235)">
-                  <circle cx="0" cy="0" r="7" fill="#F87171" stroke="#1E1B18" stroke-width="2" />
-                  <text x="-48" y="4" font-family="'Caveat'" font-size="17" font-weight="bold" fill="#1E1B18">Baroda 👶</text>
-                </g>
-
-                <!-- Pin: Ranchi -->
-                <g transform="translate(330, 225)">
-                  <circle cx="0" cy="0" r="6" fill="#FBBF24" stroke="#1E1B18" stroke-width="2" />
-                  <text x="12" y="4" font-family="'Caveat'" font-size="17" font-weight="bold" fill="#1E1B18">Ranchi 🍼</text>
-                </g>
-
-                <!-- Pin: Patna -->
-                <g transform="translate(345, 165)">
-                  <circle cx="0" cy="0" r="7" fill="#34D399" stroke="#1E1B18" stroke-width="2" />
-                  <text x="12" y="2" font-family="'Caveat'" font-size="18" font-weight="bold" fill="#047857">Patna (15 Yrs!)</text>
-                </g>
-
-                <!-- Pin: Bangalore -->
-                <g transform="translate(255, 360)">
-                  <circle cx="0" cy="0" r="8" fill="#60A5FA" stroke="#1E1B18" stroke-width="2" />
-                  <text x="-80" y="4" font-family="'Caveat'" font-size="18" font-weight="bold" fill="#1D4ED8">Bangalore 🚀</text>
-                </g>
-
-                <!-- MOVING VEHICLE SPRITE (Continuous smooth translation) -->
-                <g id="vehicle-avatar" transform="translate(175, 235)">
-                  
-                  <!-- TRAIN SPRITE -->
-                  <g id="sprite-train" class="transition-opacity duration-200">
-                    <circle cx="-12" cy="-14" r="3" fill="#E5E7EB" stroke="#1E1B18" stroke-width="1" class="animate-bounce" />
-                    <circle cx="-18" cy="-19" r="4.5" fill="#E5E7EB" stroke="#1E1B18" stroke-width="1" />
-                    <rect x="-14" y="-12" width="28" height="16" rx="3" fill="#EF4444" stroke="#1E1B18" stroke-width="2" />
-                    <rect x="-6" y="-16" width="7" height="5" fill="#1E1B18" />
-                    <rect x="-10" y="-8" width="6" height="5" fill="#FEF08A" stroke="#1E1B18" stroke-width="1" />
-                    <rect x="0" y="-8" width="8" height="5" fill="#FEF08A" stroke="#1E1B18" stroke-width="1" />
-                    <circle cx="-8" cy="5" r="3.5" fill="#374151" stroke="#1E1B18" stroke-width="1.5" />
-                    <circle cx="6" cy="5" r="3.5" fill="#374151" stroke="#1E1B18" stroke-width="1.5" />
-                  </g>
-
-                  <!-- BICYCLE SPRITE (Active in Patna) -->
-                  <g id="sprite-bicycle" class="opacity-0 transition-opacity duration-200">
-                    <circle cx="-9" cy="4" r="6.5" fill="none" stroke="#1E1B18" stroke-width="2" />
-                    <circle cx="-9" cy="4" r="1.5" fill="#1E1B18" />
-                    <circle cx="9" cy="4" r="6.5" fill="none" stroke="#1E1B18" stroke-width="2" />
-                    <circle cx="9" cy="4" r="1.5" fill="#1E1B18" />
-                    <path d="M -9,4 L 0,4 L -4,-5 L -9,4 Z" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round" />
-                    <path d="M 0,4 L 5,-4 L 9,4" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round" />
-                    <path d="M 5,-4 L 3,-8 L 7,-8" stroke="#1E1B18" stroke-width="2" stroke-linecap="round" fill="none" />
-                    <path d="M -4,-5 L -7,-6 L -1,-6" stroke="#1E1B18" stroke-width="2" stroke-linecap="round" fill="none" />
-                    <circle cx="0" cy="-12" r="3.5" fill="#FED7AA" stroke="#1E1B18" stroke-width="1.5" />
-                  </g>
-
-                  <!-- AIRPLANE SPRITE (Active toward Bangalore) -->
-                  <g id="sprite-plane" class="opacity-0 transition-opacity duration-200">
-                    <path d="M -14,2 L 14,-3 L 18,-3 C 20,-3 21,-1 19,1 L -14,6 Z" fill="#3B82F6" stroke="#1E1B18" stroke-width="2" />
-                    <path d="M -2,0 L -8,-14 L 3,-2 Z" fill="#93C5FD" stroke="#1E1B18" stroke-width="1.8" />
-                    <path d="M -2,4 L -6,14 L 3,3 Z" fill="#2563EB" stroke="#1E1B18" stroke-width="1.8" />
-                    <path d="M -12,2 L -17,-7 L -9,2 Z" fill="#1D4ED8" stroke="#1E1B18" stroke-width="1.5" />
-                    <line x1="-22" y1="-1" x2="-16" y2="-1" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
-                    <line x1="-24" y1="4" x2="-18" y2="4" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
-                  </g>
-                  
-                </g>
-
-              </svg>
-            </div>
-
-            <div class="mt-3 flex items-center justify-between text-xs font-hand text-stone-500">
-              <span>Scroll down at your pace ⇣</span>
-              <span id="scroll-pct-indicator" class="font-bold text-stone-700">0% Journey</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT SCROLLING STORY CARDS (Popping beside the map) -->
-        <div class="lg:col-span-5 space-y-24 py-6">
-          
-          <!-- CHAPTER 1: BARODA POP CARD -->
-          <div id="story-bubble-0" class="story-bubble active-pop p-6 sm:p-7 bg-white border-sketch-card shadow-doodle relative">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-2xl">🚂</span>
-              <span class="px-2.5 py-0.5 bg-yellow-200 border border-black font-fun text-xs font-bold rounded">Chapter 01</span>
-              <span class="text-stone-500 font-hand text-sm ml-auto">Vadodara, GJ</span>
-            </div>
-            <h3 class="font-fun text-2xl font-bold text-stone-900 mt-1">
-              Baroda, Gujarat
-            </h3>
-            
-            <!-- Exact Quote Pop Bubble -->
-            <div class="p-3.5 bg-red-50 border-sketch-tag my-3 shadow-doodle-sm">
-              <p class="font-scribble text-xl sm:text-2xl text-red-600 font-bold leading-snug">
-                “Well I was born in Baroda,Gujrat”
-              </p>
-            </div>
-
-            <p class="text-stone-700 text-sm leading-relaxed font-sans">
-              I don't remember my childhood much but my parents always remind me that I was a naughty kid. 
-            </p>
-          </div>
-
-          <!-- CHAPTER 2: RANCHI POP CARD -->
-          <div id="story-bubble-1" class="story-bubble p-6 sm:p-7 bg-white border-sketch-card shadow-doodle relative">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-2xl">🍼</span>
-              <span class="px-2.5 py-0.5 bg-amber-200 border border-black font-fun text-xs font-bold rounded">Chapter 02</span>
-              <span class="text-stone-500 font-hand text-sm ml-auto">Jharkhand</span>
-            </div>
-            <h3 class="font-fun text-2xl font-bold text-stone-900 mt-1">
-              Ranchi, Jharkhand
-            </h3>
-            
-            <!-- Exact Quote Pop Bubble -->
-            <div class="p-3.5 bg-amber-50 border-sketch-tag my-3 shadow-doodle-sm">
-              <p class="font-scribble text-xl sm:text-2xl text-amber-800 font-bold leading-snug">
-                “I spent my toddling years here,”
-              </p>
-            </div>
-
-            <p class="text-stone-700 text-sm leading-relaxed font-sans">
-              I have vivid memories of cycling across the streets of our colony, rushing to meet my bua and crying when someone took my toy. I remeber that tree which to a 3 year me used to look so big , that dog on which I cycled by mistake and that party which I gate crashed in confusion.
-            </p>
-          </div>
-
-          <!-- CHAPTER 3: PATNA (15 YEARS & CYCLE DEEP ZOOM) -->
-          <div id="story-bubble-2" class="story-bubble p-6 sm:p-8 bg-white border-sketch-card shadow-doodle relative">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-2xl">🚲</span>
-              <span class="px-2.5 py-0.5 bg-emerald-200 border border-black font-fun text-xs font-bold rounded">Chapter 03 • The Big Zoom</span>
-              <span class="text-stone-500 font-hand text-sm ml-auto">15 Years</span>
-            </div>
-            <h3 class="font-fun text-2xl font-bold text-stone-900 mt-1">
-              Patna, Bihar
-            </h3>
-            
-            <!-- Exact Quote Pop Bubble -->
-            <div class="p-4 bg-emerald-50 border-sketch-tag my-3 shadow-doodle-sm border-2 border-black">
-              <p class="font-scribble text-xl sm:text-2xl text-emerald-950 font-bold leading-relaxed">
-                “I lived most well 15 years of my life in this city ,as a kid I wanted to take history was kinda good in it but then my parents made me choose PCM and well i did likes coding and always wanted to have a startup”
-              </p>
-            </div>
-
-            <p class="text-stone-700 text-sm leading-relaxed font-sans mb-3">
-              Notice the map zoom into Patna's neighborhoods! I couldn't fit all of my areas on this map but these are the top ones
-            </p>
-
-            <div class="space-y-2 font-hand text-sm">
-              <div class="p-2.5 bg-stone-100 rounded-lg border border-stone-300 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span><strong>Boring Road:</strong> My coaching was here</span>
-              </div>
-              <div class="p-2.5 bg-stone-100 rounded-lg border border-stone-300 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span><strong>Bailey Road:</strong> My house was near Paras hospital </span>
-              </div>
-              <div class="p-2.5 bg-stone-100 rounded-lg border border-stone-300 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span><strong>Danapur:</strong> My school was here </span>
-              </div>
-            </div>
-          </div>
-
-          <div id="story-bubble-3" class="story-bubble p-6 sm:p-7 bg-white border-sketch-card shadow-doodle relative">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-2xl">✈️</span>
-              <span class="px-2.5 py-0.5 bg-blue-200 border border-black font-fun text-xs font-bold rounded">Chapter 04 • Present Day</span>
-              <span class="text-stone-500 font-hand text-sm ml-auto">Bengaluru</span>
-            </div>
-            <h3 class="font-fun text-2xl font-bold text-stone-900 mt-1">
-              Bangalore, Karnataka
-            </h3>
-            
-            <!-- Exact Quote Pop Bubble -->
-            <div class="p-4 bg-blue-50 border-sketch-tag my-3 shadow-doodle-sm border-2 border-black">
-              <p class="font-scribble text-xl sm:text-2xl text-blue-950 font-bold leading-relaxed">
-                “Well now I'm here in Blr and hopefully I will start replacing the stupid stuff here with my projects , acheivement and all”
-              </p>
-            </div>
-
-            <p class="text-stone-700 text-sm leading-relaxed font-sans">
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section class="mt-28 p-6 sm:p-8 bg-amber-50 border-sketch-card shadow-doodle text-center relative overflow-hidden">
-      <div class="washi-tape"></div>
-      <div class="max-w-xl mx-auto space-y-4">
-        <h3 class="font-fun text-2xl sm:text-3xl font-bold">
-          "Trying as hard as one could"
-        </h3>
-        <p class="font-hand text-xl text-stone-700">
-          Want to discuss books, collaborate on code, or chat about tech startups? Let's connect!
-        </p>
-        <div class="flex flex-wrap justify-center gap-3 pt-2">
-          <button onclick="copyEmail(this)" class="px-4 py-2 bg-white border-2 border-black rounded-lg font-hand font-bold text-base shadow-doodle-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center gap-2">
-            <i data-lucide="copy" class="w-4 h-4 text-stone-600"></i>
-            <span>Copy: kaniskgautam13@gmail.com</span>
-          </button>
-       
-          </a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="max-w-6xl mx-auto px-4 py-12 text-center font-hand text-stone-500 border-t border-stone-200 mt-16">
-    <div class="flex justify-center items-center gap-2 mb-2 font-scribble text-xl text-stone-700">
-      <span>Doodles from</span>
-      <a href="https://www.thedoodlelibrary.com" target="_blank" rel="noopener noreferrer" class="underline hover:text-black font-bold">The Doodle Library</a>
-      <span>• Handcrafted for Kanisk</span>
     </div>
-    <p class="text-xs text-stone-400">
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SCREENSHOT PROOF GALLERY SECTION (Exact Screenshot Visual Evidence)       -->
+  <!-- ========================================================================= -->
+  <section id="proof-gallery-section" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 border-t-2 border-stone-900">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 border-2 border-stone-900 rounded-full font-hand font-bold text-xs mb-3 shadow-sketch-sm">
+        <span>📸</span> Feature Proof & Design Archive
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
+        Real Extension Screenshots (In Development)
+      </h2>
+      <p class="text-stone-600 mt-2 text-sm sm:text-base">
+        Here is the proof of the real extension UI in beta testing across actual browsing sessions, Reddit tabs, and calendar tracking.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       
+      <!-- Proof 1: New Task Screen -->
+      <div class="bg-white border-2 border-stone-900 rounded-3xl p-5 shadow-sketch flex flex-col justify-between">
+        <div class="mb-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-hand font-bold text-lg text-stone-900">1. New Task & Site Blocklist</span>
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-mono font-bold border border-stone-900">Screenshot 1 & 4</span>
+          </div>
+          <p class="text-xs text-stone-600 mb-3">Defines target ("chemistry"), tags (#learn, #chemistry), 30 min duration, priority, and 8 blocked sites.</p>
+        </div>
+        <!-- Card Frame recreating the exact screenshot UI -->
+        <div class="border-2 border-stone-900 rounded-2xl p-4 bg-[#fdfbf7] text-stone-900 font-sans text-xs space-y-2.5 shadow-inner">
+          <div class="font-hand font-bold text-base flex justify-between border-b pb-1">
+            <span>← Back</span>
+            <span class="text-lg">New Task</span>
+            <span></span>
+          </div>
+          <div>
+            <div class="font-hand font-bold text-stone-800 text-xs">What do you want to get done?</div>
+            <div class="p-1.5 bg-white border border-stone-900 rounded-lg font-bold text-stone-800 mt-0.5">chemistry</div>
+          </div>
+          <div class="p-2 border border-dashed border-stone-800 rounded-lg flex flex-wrap gap-1 bg-[#fcfaf4]">
+            <span class="bg-[#ffe885] px-2 py-0.5 rounded-full border border-stone-900 font-hand font-bold text-[10px]">🏷️ Learning</span>
+            <span class="bg-[#ffe885] px-2 py-0.5 rounded-full border border-stone-900 font-hand font-bold text-[10px]">#learn ✏️ ✕</span>
+            <span class="bg-[#ffe885] px-2 py-0.5 rounded-full border border-stone-900 font-hand font-bold text-[10px]">#chemistry ✏️ ✕</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="p-1 bg-white border border-stone-900 rounded-lg font-semibold text-center">30 min</div>
+            <div class="p-1 bg-white border border-stone-900 rounded-lg font-semibold text-center">🟡 Medium</div>
+          </div>
+          <div class="p-2 border border-dashed border-red-300 rounded-lg flex flex-wrap gap-1 bg-red-50/50">
+            <span class="bg-red-100 text-red-800 px-1.5 py-0.5 rounded-full border border-red-300 text-[10px]">youtube.com ✕</span>
+            <span class="bg-red-100 text-red-800 px-1.5 py-0.5 rounded-full border border-red-300 text-[10px]">reddit.com ✕</span>
+            <span class="bg-red-100 text-red-800 px-1.5 py-0.5 rounded-full border border-red-300 text-[10px]">tiktok.com ✕</span>
+            <span class="bg-red-100 text-red-800 px-1.5 py-0.5 rounded-full border border-red-300 text-[10px]">netflix.com ✕</span>
+          </div>
+        </div>
+        <div class="mt-3 text-[11px] text-stone-500 font-mono text-center">Reference: 3cf9c512 & Screenshot 11.37.40</div>
+      </div>
+
+      <!-- Proof 2: Active Focus Lock (Dark Screen) -->
+      <div class="bg-[#121216] text-white border-2 border-stone-900 rounded-3xl p-5 shadow-sketch flex flex-col justify-between">
+        <div class="mb-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-hand font-bold text-lg text-stone-100">2. Active Focus Lock Mode</span>
+            <span class="px-2 py-0.5 rounded bg-stone-800 text-stone-300 text-xs font-mono font-bold border border-stone-700">Screenshot 3</span>
+          </div>
+          <p class="text-xs text-stone-400 mb-3">Immersive dark countdown showing 21:01 timer, 23% completion bar, blocked domains and break controls.</p>
+        </div>
+        <!-- Card Frame -->
+        <div class="border-2 border-stone-700 rounded-2xl p-4 bg-[#18181e] text-center font-sans space-y-2 shadow-inner">
+          <div class="inline-block px-3 py-0.5 bg-stone-800 border border-stone-700 rounded-full font-hand text-xs font-bold text-stone-200">
+            🔒 Focus Lock Active
+          </div>
+          <div class="font-hand text-lg italic text-stone-300">chemistry</div>
+          <div class="text-4xl font-extrabold tracking-tight text-white py-1 font-mono">21:01</div>
+          <div class="w-full bg-stone-800 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-white h-1.5 rounded-full" style="width: 23%"></div>
+          </div>
+          <div class="text-[10px] text-right text-stone-400">23% complete</div>
+          <div class="grid grid-cols-2 gap-2 pt-2">
+            <button class="py-1.5 bg-[#e84141] text-white rounded-lg text-xs font-hand font-bold">End Focus</button>
+            <button class="py-1.5 border border-stone-700 text-stone-300 rounded-lg text-xs font-hand font-bold">Take Break</button>
+          </div>
+        </div>
+        <div class="mt-3 text-[11px] text-stone-500 font-mono text-center">Reference: 865ea548-f4e7</div>
+      </div>
+
+      <!-- Proof 3: Focus Calendar -->
+      <div class="bg-white border-2 border-stone-900 rounded-3xl p-5 shadow-sketch flex flex-col justify-between">
+        <div class="mb-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-hand font-bold text-lg text-stone-900">3. Tagged Calendar View</span>
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-mono font-bold border border-stone-900">Screenshot 2</span>
+          </div>
+          <p class="text-xs text-stone-600 mb-3">Historical session heatmap breakdown showing tagged minutes on October 6, 2026 (#learn 50%, #chemistry 50%).</p>
+        </div>
+        <!-- Card Frame -->
+        <div class="border-2 border-stone-900 rounded-2xl p-4 bg-[#fdfbf7] text-stone-900 text-xs space-y-2.5 shadow-inner">
+          <div class="flex justify-between items-center border-b pb-1 font-hand font-bold">
+            <span class="text-base">📅 Focus Calendar</span>
+            <span class="text-xs">October 2026</span>
+          </div>
+          <div class="grid grid-cols-7 gap-1 text-center font-mono text-[10px] py-1 bg-white border border-stone-300 rounded-lg p-2">
+            <span class="text-stone-400">Su</span><span class="text-stone-400">Mo</span><span class="text-stone-400">Tu</span><span class="text-stone-400">We</span><span class="text-stone-400">Th</span><span class="text-stone-400">Fr</span><span class="text-stone-400">Sa</span>
+            <span class="col-span-2"></span>
+            <span class="bg-black text-white font-bold rounded py-0.5">6 ●</span>
+            <span>7</span><span>8</span><span>9</span><span>10</span>
+          </div>
+          <div class="p-2 bg-white border border-stone-900 rounded-xl space-y-1">
+            <div class="flex justify-between font-hand font-bold text-xs"><span>Tue, Oct 6</span><span class="font-sans text-[10px]">10m total</span></div>
+            <div class="flex justify-between text-[11px] text-stone-700"><span>🏷️ #learn</span><span>50% (5m)</span></div>
+            <div class="flex justify-between text-[11px] text-stone-700"><span>🏷️ #chemistry</span><span>50% (5m)</span></div>
+          </div>
+        </div>
+        <div class="mt-3 text-[11px] text-stone-500 font-mono text-center">Reference: bcc32da4-7238</div>
+      </div>
+
+      <!-- Proof 4: Sassy "Why are we here?" Modal -->
+      <div class="bg-white border-2 border-stone-900 rounded-3xl p-5 shadow-sketch flex flex-col justify-between">
+        <div class="mb-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-hand font-bold text-lg text-stone-900">4. Sassy Intervention Nudge</span>
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-mono font-bold border border-stone-900">Screenshot 5 & 6</span>
+          </div>
+          <p class="text-xs text-stone-600 mb-3">In-tab overlay triggered when navigating to reddit.com: "ryan, you're browsing reddit.com while chemistry needs attention!"</p>
+        </div>
+        <!-- Card Frame -->
+        <div class="border-2 border-stone-900 rounded-2xl p-4 bg-[#fcfaf4] text-center text-xs space-y-2.5 shadow-inner">
+          <div class="inline-block px-3 py-0.5 bg-white border border-stone-900 rounded-full font-hand font-bold text-[11px]">
+            ✏️ Nudge Focus
+          </div>
+          <div class="text-2xl">😢</div>
+          <div class="font-hand font-bold text-xl text-stone-900">Why are we here? 👀</div>
+          <p class="text-stone-700 text-[11px] leading-relaxed">
+            <span class="bg-white border border-stone-800 px-1 py-0.5 rounded font-bold">ryan ✏️</span>, you're browsing <strong>reddit.com</strong> while <span class="squiggly font-bold">chemistry</span> needs attention!
+          </p>
+          <div class="border border-dashed border-stone-900 p-1.5 rounded-lg font-hand font-bold text-[11px]">
+            Working on: chemistry
+          </div>
+          <button class="w-full py-2 bg-stone-900 text-white font-hand font-bold rounded-lg text-xs">Back to Work ✊</button>
+        </div>
+        <div class="mt-3 text-[11px] text-stone-500 font-mono text-center">Reference: Screenshot 11.36.33</div>
+      </div>
+
+      <!-- Proof 5: Guilt Trip "0 seconds?! Really?!" -->
+      <div class="bg-white border-2 border-stone-900 rounded-3xl p-5 shadow-sketch flex flex-col justify-between">
+        <div class="mb-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-hand font-bold text-lg text-stone-900">5. Instant Doomscroll Catch</span>
+            <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-900 text-xs font-mono font-bold border border-rose-300">Screenshot 7</span>
+          </div>
+          <p class="text-xs text-stone-600 mb-3">Angry face overlay triggered immediately on tab open: "0 seconds?! Really?! 💀 Doomscrolling comments won't revise chemistry for you!"</p>
+        </div>
+        <!-- Card Frame -->
+        <div class="border-2 border-stone-900 rounded-2xl p-4 bg-[#fcfaf4] text-center text-xs space-y-2.5 shadow-inner">
+          <div class="inline-block px-3 py-0.5 bg-white border border-stone-900 rounded-full font-hand font-bold text-[11px]">
+            ✏️ Nudge Focus
+          </div>
+          <div class="text-2xl">😠</div>
+          <div class="font-hand font-bold text-xl text-stone-900">0 seconds?! Really?! 💀</div>
+          <p class="text-stone-700 text-[11px] leading-relaxed">
+            Did you really just open Reddit 0s into <span class="font-bold squiggly-red">chemistry</span>?! Doomscrolling comments won't revise chemistry for you!
+          </p>
+          <div class="border border-dashed border-stone-900 p-1.5 rounded-lg font-hand font-bold text-[11px]">
+            Working on: chemistry
+          </div>
+          <button class="w-full py-2 bg-stone-900 text-white font-hand font-bold rounded-lg text-xs">Back to Work ✊</button>
+        </div>
+        <div class="mt-3 text-[11px] text-stone-500 font-mono text-center">Reference: Screenshot 11.14.04</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive AI Nudge Playground & Intervention Customizer -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t-2 border-stone-900">
+    <div class="bg-white border-3 border-stone-900 rounded-3xl p-6 sm:p-10 shadow-sketch-lg">
+      <div class="max-w-3xl mb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 border-2 border-stone-900 rounded-full font-hand font-bold text-xs mb-3 shadow-sketch-sm">
+          <span>🎯</span> Test The Exact Intervention Engine
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
+          Customize Your AI Distraction Nudges
+        </h2>
+        <p class="text-stone-600 mt-2 text-sm sm:text-base">
+          Whenever you stray to an unauthorized tab, Nudge Focus interrupts your flow with customized psychology designed to break autopilot scrolling. Test how it looks and sounds below:
+        </p>
+      </div>
+
+      <!-- Controls grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1">Your Name</label>
+          <input type="text" id="demo-name" value="ryan" class="w-full px-3 py-2 border-2 border-stone-900 rounded-xl font-medium text-sm focus:outline-none shadow-sketch-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1">Target Task</label>
+          <input type="text" id="demo-task" value="chemistry" class="w-full px-3 py-2 border-2 border-stone-900 rounded-xl font-medium text-sm focus:outline-none shadow-sketch-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1">Distraction Site</label>
+          <input type="text" id="demo-site" value="reddit.com" class="w-full px-3 py-2 border-2 border-stone-900 rounded-xl font-medium text-sm focus:outline-none shadow-sketch-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1">AI Persona Style</label>
+          <select id="demo-style" class="w-full px-3 py-2 border-2 border-stone-900 rounded-xl font-medium text-sm focus:outline-none shadow-sketch-sm bg-white">
+            <option value="sassy">🔥 Sassy / Disappointed (Why are we here? 👀)</option>
+            <option value="guilt">💀 Guilt Trip (0 seconds?! Really?! 💀)</option>
+            <option value="gentle">🌱 Supportive Friend (Hey Friend 👀)</option>
+            <option value="roast">🚨 Brutal Roast (Doomscroller)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Live Gemini Voice & Prompt Tuning Row -->
+      <div class="p-4 bg-stone-50 border-2 border-dashed border-stone-300 rounded-2xl mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+            ✨
+          </div>
+          <div>
+            <div class="font-bold text-stone-900 text-sm">Powered by Gemini 3 Flash & Gemini TTS</div>
+            <div class="text-xs text-stone-600">Generates unique unscripted roast lines & reads them out aloud via high-clarity voice models.</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="text-xs font-bold text-stone-700">TTS Voice:</label>
+          <select id="tts-voice-select" class="px-2 py-1.5 bg-white border border-stone-400 rounded-lg text-xs font-medium focus:outline-none">
+            <option value="Puck">Puck (Upbeat)</option>
+            <option value="Kore" selected>Kore (Firm)</option>
+            <option value="Fenrir">Fenrir (Excitable)</option>
+            <option value="Zephyr">Zephyr (Bright)</option>
+            <option value="Charon">Charon (Informative)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Launch button -->
+      <div class="flex flex-wrap items-center gap-3">
+        <button onclick="triggerCustomNudge(true)" id="btn-launch-ai-nudge" class="px-6 py-3 bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold rounded-xl border-2 border-stone-900 shadow-sketch transition flex items-center gap-2">
+          <span id="btn-launch-text">Launch Live Gemini Nudge</span>
+          <span id="btn-launch-spinner" class="hidden animate-spin">⏳</span>
+          <span>⚡</span>
+        </button>
+        <button onclick="speakCurrentNudge()" id="btn-read-aloud" class="px-4 py-3 bg-purple-100 hover:bg-purple-200 text-purple-950 font-semibold rounded-xl border-2 border-stone-900 shadow-sketch-sm text-sm flex items-center gap-1.5">
+          <span>🔊</span> Read Aloud (Gemini TTS)
+        </button>
+        <button onclick="playAudioTone('alert')" class="px-4 py-3 bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold rounded-xl border-2 border-stone-900 shadow-sketch-sm text-sm">
+          🔔 Test Bell Sound
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Breakdown Cards Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight">Why standard blockers fail & Nudge wins</h2>
+      <p class="text-stone-600 mt-2">Built with behavioral feedback loops rather than easily bypassed hard blocks.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Feature Card 1 -->
+      <div class="p-6 bg-white border-2 border-stone-900 rounded-2xl shadow-sketch flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 bg-amber-100 border-2 border-stone-900 rounded-xl flex items-center justify-center text-2xl shadow-sketch-sm mb-4">
+            ✏️
+          </div>
+          <h3 class="text-xl font-hand font-bold text-stone-900 mb-2">Cognitive Interruptions</h3>
+          <p class="text-sm text-stone-600 leading-relaxed">
+            Standard 404 block pages make you immediately click 'Inspect Element' or disable the extension. Nudge Focus uses custom humor and emotional triggers like <em>"Did you really open Reddit 0s into chemistry?!"</em> to spark conscious choice.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-dashed border-stone-300 flex items-center text-xs font-semibold text-stone-500">
+          ✓ Verified by habit psychology
+        </div>
+      </div>
+
+      <!-- Feature Card 2 -->
+      <div class="p-6 bg-[#1a1a20] text-white border-2 border-stone-900 rounded-2xl shadow-sketch flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 bg-stone-800 border-2 border-stone-700 rounded-xl flex items-center justify-center text-2xl shadow-sketch-sm mb-4">
+            🔒
+          </div>
+          <h3 class="text-xl font-hand font-bold text-stone-100 mb-2">Focus Lock Deep Work Mode</h3>
+          <p class="text-sm text-stone-300 leading-relaxed">
+            When you enter deep focus, high-contrast dark mode engages with persistent task timers, 3-minute quick peek allowances, and automated blocked domain routing.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-stone-800 flex items-center text-xs font-semibold text-stone-400">
+          ✓ Zero tab switching leaks
+        </div>
+      </div>
+
+      <!-- Feature Card 3 -->
+      <div class="p-6 bg-white border-2 border-stone-900 rounded-2xl shadow-sketch flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 bg-emerald-100 border-2 border-stone-900 rounded-xl flex items-center justify-center text-2xl shadow-sketch-sm mb-4">
+            📊
+          </div>
+          <h3 class="text-xl font-hand font-bold text-stone-900 mb-2">Tagged Calendar Analytics</h3>
+          <p class="text-sm text-stone-600 leading-relaxed">
+            Every session tracks tags like <span class="font-mono bg-yellow-100 px-1 rounded">#learn</span> and <span class="font-mono bg-yellow-100 px-1 rounded">#chemistry</span> so you can review real historical progress in your monthly focus heatmap.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-dashed border-stone-300 flex items-center text-xs font-semibold text-stone-500">
+          ✓ Exportable time stats
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900 text-center mb-8">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <div class="p-4 bg-white border-2 border-stone-900 rounded-xl shadow-sketch-sm">
+        <h4 class="font-bold text-stone-900 text-base mb-1">Does Nudge Focus track my private browsing history?</h4>
+        <p class="text-stone-600 text-sm">No. All screentime metrics and domain matching happen 100% locally on your computer inside your browser's local sandbox storage. No tracking servers, ever.</p>
+      </div>
+      <div class="p-4 bg-white border-2 border-stone-900 rounded-xl shadow-sketch-sm">
+        <h4 class="font-bold text-stone-900 text-base mb-1">What happens if I click "I'll be quick (3 min)"?</h4>
+        <p class="text-stone-600 text-sm">It starts a gentle 3-minute grace period timer. When time expires, the AI nudge re-engages automatically to gently pull you back into your study sprint.</p>
+      </div>
+      <div class="p-4 bg-white border-2 border-stone-900 rounded-xl shadow-sketch-sm">
+        <h4 class="font-bold text-stone-900 text-base mb-1">Can I customize my name and AI tones?</h4>
+        <p class="text-stone-600 text-sm">Yes! You can toggle between Friendly, Sarcastic, Guilt-trip, and Brutal Roast modes, along with setting your preferred nickname.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t-2 border-stone-900 bg-[#f4f0e6] py-10 px-4 text-center">
+    <div class="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-3">
+      <div class="inline-flex items-center gap-2 font-hand font-bold text-xl text-stone-900">
+        <span>✏️</span> Nudge Focus
+      </div>
+      <p class="text-xs text-stone-600 max-w-md">
+        Designed for students, developers, and creators who need a gentle (and witty) push to stay on track.
+      </p>
+      
+      <!-- Beta status box -->
+      <div class="my-2 p-3 bg-white border-2 border-stone-900 rounded-xl shadow-sketch-sm max-w-sm w-full">
+        <div class="text-xs font-bold text-stone-900 flex items-center justify-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+          <span>Status: Closed Private Beta</span>
+        </div>
+        
+        <button onclick="openWaitlistModal()" class="mt-2 text-xs px-3 py-1 bg-[#ffe885] border border-stone-900 font-bold rounded-lg hover:bg-amber-300">
+          Join Beta Waitlist
+        </button>
+      </div>
+
+      <div class="font-mono text-xs text-stone-700 pt-2">
+        Built by <a href="https://kaniskgautam.com" target="_blank" class="underline font-bold hover:text-black">kaniskgautam.com</a>
+      </div>
+    </div>
   </footer>
 
+  <!-- ========================================================================= -->
+  <!-- WAITLIST REGISTRATION MODAL                                              -->
+  <!-- ========================================================================= -->
+  <div id="waitlist-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-nudge hidden transition-opacity duration-200">
+    <div class="relative w-full max-w-md bg-[#fdfbf7] rounded-3xl border-3 border-stone-900 shadow-sketch-lg p-6 sm:p-7 text-stone-900 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center justify-between pb-3 border-b border-stone-300 mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🎟️</span>
+          <h3 class="font-hand font-bold text-2xl text-stone-900">Join Private Beta</h3>
+        </div>
+        <button onclick="closeWaitlistModal()" class="w-8 h-8 rounded-full border-2 border-stone-900 flex items-center justify-center font-bold text-sm hover:bg-stone-200">
+          ✕
+        </button>
+      </div>
+
+      <p class="text-xs sm:text-sm text-stone-600 mb-4 leading-relaxed">
+        Nudge Focus is currently in non-launched testing. Enter your email below to register for the next batch of beta invites.
+      </p>
+
+      <form onsubmit="handleWaitlistSubmit(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">Your Name</label>
+          <input type="text" id="waitlist-name" placeholder="e.g. Ryan or Alex" required class="w-full px-3.5 py-2.5 bg-white border-2 border-stone-900 rounded-xl text-sm font-medium focus:outline-none shadow-sketch-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">Email Address</label>
+          <input type="email" id="waitlist-email" placeholder="name@example.com" required class="w-full px-3.5 py-2.5 bg-white border-2 border-stone-900 rounded-xl text-sm font-medium focus:outline-none shadow-sketch-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">What site distracts you the most?</label>
+          <input type="text" id="waitlist-distraction" placeholder="e.g. reddit.com, youtube, twitter..." class="w-full px-3.5 py-2.5 bg-white border-2 border-stone-900 rounded-xl text-sm font-medium focus:outline-none shadow-sketch-sm">
+        </div>
+
+        <div class="p-3 bg-amber-50 border border-stone-400 rounded-xl text-[11px] text-stone-700 leading-normal flex items-start gap-2">
+          <span class="text-sm">📬</span>
+          <div>
+            Your registration is sent directly to <strong>admin@kaniskgautam.com</strong>. We will contact you when your build is approved.
+          </div>
+        </div>
+
+        <button type="submit" id="btn-submit-waitlist" class="w-full py-3.5 bg-stone-900 hover:bg-stone-800 active:scale-[0.98] text-white font-hand font-bold text-lg rounded-xl shadow-sketch transition flex items-center justify-center gap-2">
+          <span>Register for Beta Access</span> <span>🚀</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN INTERACTIVE AI NUDGE MODAL -->
+      </div>
+
+      <!-- Excuse Input Box (Shown when user asks for 3 min grace) -->
+      <div id="modal-excuse-box" class="w-full mb-4 hidden text-left bg-amber-50 p-3 rounded-xl border-2 border-stone-900">
+        <label class="block text-xs font-bold text-stone-800 mb-1">
+          Provide your excuse to Gemini AI Gatekeeper:
+        </label>
+        <div class="flex gap-1.5">
+          <input type="text" id="excuse-input" placeholder="e.g. Just checking one formula on reddit..." class="flex-1 px-2.5 py-1.5 border border-stone-900 rounded-lg text-xs">
+          <button onclick="submitExcuseToAI()" id="btn-submit-excuse" class="px-3 py-1.5 bg-stone-900 text-white font-bold rounded-lg text-xs hover:bg-stone-800">
+            Judge Me
+          </button>
+        </div>
+        <div id="excuse-verdict" class="text-xs font-medium mt-1.5 text-stone-700 hidden"></div>
+      </div>
+
+      <!-- Action Buttons -->
+     
+
+      <!-- Close hint -->
+      <p class="text-[11px] text-stone-400 mt-4">
+        Press <kbd class="px-1.5 py-0.5 bg-stone-200 border border-stone-300 rounded font-mono text-stone-700">ESC</kbd> or click Back to Work
+      </p>
+    </div>
+  </div>
+
+  <!-- Dynamic Toast Alert Container -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-stone-900 text-white px-4 py-3 rounded-xl border-2 border-white shadow-sketch text-sm font-medium flex items-center gap-2">
+    <span id="toast-icon">⚡</span>
+    <span id="toast-msg">Action confirmed!</span>
+  </div>
+
   <script>
-    // Initialize icons
-    lucide.createIcons();
+    // Audio synthesis using Web Audio API for timer and alerts
+    let audioCtx = null;
+    function playAudioTone(type) {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
 
-    // Fallback handler if external Doodle SVG is blocked
-    function handleDoodleFallback(img, text) {
-      img.onerror = null;
-      img.src = "data:image/svg+xml;utf8," + encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none" stroke="#1E1B18" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="20" y="20" width="200" height="140" rx="16" fill="#FEF08A" />
-          <circle cx="80" cy="80" r="10" fill="#1E1B18" />
-          <circle cx="160" cy="80" r="10" fill="#1E1B18" />
-          <path d="M 90 115 Q 120 135 150 115" stroke-width="3" />
-          <text x="120" y="150" font-family="'Patrick Hand', cursive" font-size="14" font-weight="bold" text-anchor="middle" fill="#1E1B18">${text}</text>
-        </svg>
-      `);
-    }
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
 
-    /* =========================================================
-       SMOOTH SCROLLYTELLING & LERP MAP SYSTEM
-       ========================================================= */
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
 
-    // Keyframes for the journey map
-    // Stage 0: Baroda (Gujarat) - 0.0
-    // Stage 1: Ranchi (Jharkhand) - 0.33
-    // Stage 2: Patna (Bihar Zoomed) - 0.66
-    // Stage 3: Bangalore (Karnataka) - 1.0
-    const keyframes = [
-      {
-        progress: 0.0,
-        title: "Baroda, Gujarat",
-        vehicle: "🚂 Indian Railways",
-        type: "train",
-        coords: { x: 175, y: 235 },
-        viewBox: { x: 0, y: 0, w: 600, h: 450 },
-        patnaGridOpacity: 0
-      },
-      {
-        progress: 0.33,
-        title: "Ranchi, Jharkhand",
-        vehicle: "🚂 Indian Railways",
-        type: "train",
-        coords: { x: 330, y: 225 },
-        viewBox: { x: 0, y: 0, w: 600, h: 450 },
-        patnaGridOpacity: 0
-      },
-      {
-        progress: 0.66,
-        title: "Patna, Bihar (15 Years!)",
-        vehicle: "🚲 Cycling through Boring & Bailey Rd",
-        type: "cycle",
-        coords: { x: 360, y: 185 }, // Center of Patna local streets
-        // Zoomed-in Camera Box over Patna:
-        viewBox: { x: 200, y: 70, w: 320, h: 240 },
-        patnaGridOpacity: 1
-      },
-      {
-        progress: 1.0,
-        title: "Bangalore, Karnataka",
-        vehicle: "✈️ Flight south to BLR",
-        type: "plane",
-        coords: { x: 255, y: 360 },
-        viewBox: { x: 0, y: 0, w: 600, h: 450 },
-        patnaGridOpacity: 0
+        if (type === 'alert') {
+          // Play a friendly playful double boop
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === 'bell') {
+          // Clear bell tone for focus start
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(659.25, now); // E5
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+          osc.start(now);
+          osc.stop(now + 0.6);
+        }
+      } catch (e) {
+        console.warn('Audio synthesis not permitted or disabled:', e);
       }
-    ];
-
-    // Lerp helper
-    function lerp(start, end, t) {
-      return start + (end - start) * t;
     }
 
-    const svg = document.getElementById('interactive-map-svg');
-    const avatar = document.getElementById('vehicle-avatar');
-    const stageTitle = document.getElementById('current-stage-title');
-    const vehicleIndicator = document.getElementById('vehicle-indicator');
-    const patnaGrid = document.getElementById('patna-city-grid');
-    const scrollPct = document.getElementById('scroll-pct-indicator');
+    // =========================================================================
+    // GEMINI API UTILITIES & INTEGRATIONS
+    // =========================================================================
+    const GEMINI_API_KEY = ""; // Automatically populated in runtime
+    let currentInterventionAudio = null;
+    let latestNudgeSpokenText = "";
 
-    const trainSprite = document.getElementById('sprite-train');
-    const cycleSprite = document.getElementById('sprite-bicycle');
-    const planeSprite = document.getElementById('sprite-plane');
+    // Convert raw signed PCM 16-bit to standard WAV container Blob
+    function pcmToWav(pcmData, sampleRate) {
+      const numChannels = 1;
+      const bytesPerSample = 2;
+      const blockAlign = numChannels * bytesPerSample;
+      const byteRate = sampleRate * blockAlign;
+      const dataSize = pcmData.length * bytesPerSample;
+      const buffer = new ArrayBuffer(44 + dataSize);
+      const view = new DataView(buffer);
 
-    const bubbles = [
-      document.getElementById('story-bubble-0'),
-      document.getElementById('story-bubble-1'),
-      document.getElementById('story-bubble-2'),
-      document.getElementById('story-bubble-3')
-    ];
+      // Helper to write ASCII strings
+      const writeString = (offset, string) => {
+        for (let i = 0; i < string.length; i++) {
+          view.setUint8(offset + i, string.charCodeAt(i));
+        }
+      };
 
-    let targetProgress = 0;
-    let currentProgress = 0;
+      writeString(0, 'RIFF');
+      view.setUint32(4, 36 + dataSize, true);
+      writeString(8, 'WAVE');
+      writeString(12, 'fmt ');
+      view.setUint32(16, 16, true); // Subchunk1Size (16 for PCM)
+      view.setUint16(20, 1, true); // AudioFormat (1 = PCM)
+      view.setUint16(22, numChannels, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, byteRate, true);
+      view.setUint16(32, blockAlign, true);
+      view.setUint16(34, 16, true); // BitsPerSample
+      writeString(36, 'data');
+      view.setUint32(40, dataSize, true);
 
-    // Calculate normalized progress (0 to 1) based on the story cards container
-    function updateScrollProgress() {
-      const wrapper = document.getElementById('scrolly-wrapper');
-      if (!wrapper) return;
+      // Write PCM audio samples
+      let offset = 44;
+      for (let i = 0; i < pcmData.length; i++, offset += 2) {
+        view.setInt16(offset, pcmData[i], true);
+      }
 
-      const rect = wrapper.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Start when wrapper enters center, complete when last card passes
-      const startY = rect.top - (windowHeight * 0.4);
-      const totalScrollable = rect.height - (windowHeight * 0.5);
-
-      if (totalScrollable <= 0) return;
-
-      let p = -startY / totalScrollable;
-      p = Math.max(0, Math.min(1, p));
-      targetProgress = p;
+      return new Blob([buffer], { type: 'audio/wav' });
     }
 
-    // Animation loop with smooth 60fps LERP damping
-    function tick() {
-      // Damping factor for ultra smooth feel
-      currentProgress += (targetProgress - currentProgress) * 0.085;
+    function base64ToArrayBuffer(base64) {
+      const binaryString = window.atob(base64);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      return bytes.buffer;
+    }
 
-      // Find active keyframe interval
-      let segmentIndex = 0;
-      for (let i = 0; i < keyframes.length - 1; i++) {
-        if (currentProgress >= keyframes[i].progress && currentProgress <= keyframes[i + 1].progress) {
-          segmentIndex = i;
-          break;
+    // Call Gemini 3 Flash to synthesize playful custom interventions
+    async function callGeminiInterventionGen(userName, taskName, blockedSite, personaStyle) {
+      const systemInstruction = `You are the witty, playful AI brain behind "Nudge Focus", a viral Chrome extension that stops students & devs from doomscrolling.
+Your job is to generate a custom intervention in strict JSON.
+Tone guide:
+- "sassy": Disappointed, dry humor, asks "Why are we here?", witty remarks.
+- "guilt": Emotional guilt trip, reminds them how many seconds they lasted, talks about their exam/deadlines.
+- "gentle": Warm supportive friend, encouraging, reminds them of the finish line.
+- "roast": Savage roast, calls out doomscrolling and procrastination directly.
+
+Return JSON schema with:
+{
+  "headline": "Short punchy title like 'Why are we here? 👀' or '0 seconds?! Really?! 💀'",
+  "body": "2 sentences max calling out the user, their task, and their blocked site in a fun, conversational way.",
+  "speechScript": "Short 1-2 sentence spoken version for text-to-speech to read out."
+}`;
+
+      const userPrompt = `Generate a distraction modal copy. User: "${userName}", Committed Task: "${taskName}", Caught browsing: "${blockedSite}", Persona: "${personaStyle}".`;
+
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+      const payload = {
+        contents: [{ parts: [{ text: userPrompt }] }],
+        systemInstruction: { parts: [{ text: systemInstruction }] },
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              "headline": { "type": "STRING" },
+              "body": { "type": "STRING" },
+              "speechScript": { "type": "STRING" }
+            },
+            required: ["headline", "body", "speechScript"]
+          }
+        }
+      };
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        const jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (jsonText) {
+          return JSON.parse(jsonText);
+        }
+      } catch (err) {
+        console.warn('Gemini Flash call fallback:', err);
+      }
+      return null; // Triggers fallback to crafted template
+    }
+
+    // Call Gemini 2.5 Flash TTS for voice roasts
+    async function callGeminiTts(textToSpeak, voiceName = "Kore") {
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${GEMINI_API_KEY}`;
+      const payload = {
+        contents: [{
+          parts: [{ text: `Say with cheeky expression: ${textToSpeak}` }]
+        }],
+        generationConfig: {
+          responseModalities: ["AUDIO"],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: { voiceName: voiceName }
+            }
+          }
+        },
+        model: "gemini-2.5-flash-preview-tts"
+      };
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const result = await response.json();
+        const part = result?.candidates?.[0]?.content?.parts?.[0];
+        const audioData = part?.inlineData?.data;
+        const mimeType = part?.inlineData?.mimeType;
+
+        if (audioData && mimeType && mimeType.startsWith("audio/")) {
+          const match = mimeType.match(/rate=(\d+)/);
+          const sampleRate = match ? parseInt(match[1], 10) : 24000;
+          const pcmData = base64ToArrayBuffer(audioData);
+          const pcm16 = new Int16Array(pcmData);
+          const wavBlob = pcmToWav(pcm16, sampleRate);
+          return URL.createObjectURL(wavBlob);
+        }
+      } catch (e) {
+        console.warn('TTS fetch failed or simulated:', e);
+      }
+      return null;
+    }
+
+    // Gemini Feature: AI Task Breakdown
+    async function generateAiTaskPlan() {
+      const taskInput = document.getElementById('task-name-input');
+      const planBox = document.getElementById('ai-plan-box');
+      const planContent = document.getElementById('ai-plan-content');
+      const btn = document.getElementById('ai-plan-btn');
+
+      const task = taskInput?.value?.trim() || 'chemistry';
+      btn.innerHTML = `<span>⏳</span> Thinking...`;
+      btn.disabled = true;
+
+      const systemPrompt = `You are an expert productivity coach. Given a task, return JSON with recommended minutes (10-90), priority (High, Medium, Low), tags (array of 2 strings with # prefix), and 3 bullet micro-steps to get started immediately.`;
+      const prompt = `Analyze task: "${task}".`;
+
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+      const payload = {
+        contents: [{ parts: [{ text: prompt }] }],
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              "durationMin": { "type": "NUMBER" },
+              "priority": { "type": "STRING" },
+              "tags": { "type": "ARRAY", "items": { "type": "STRING" } },
+              "microSteps": { "type": "ARRAY", "items": { "type": "STRING" } }
+            },
+            required: ["durationMin", "priority", "tags", "microSteps"]
+          }
+        }
+      };
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        const plan = JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text);
+
+        if (plan) {
+          // Apply to UI inputs
+          const durInput = document.getElementById('task-duration-input');
+          const prioInput = document.getElementById('task-priority-input');
+          if (durInput && plan.durationMin) durInput.value = plan.durationMin;
+          if (prioInput && plan.priority) prioInput.value = plan.priority;
+
+          planContent.innerHTML = `
+            <div class="mb-1 font-semibold text-stone-900">Recommended: ${plan.durationMin} mins &bull; Priority: ${plan.priority}</div>
+            <ul class="list-disc pl-4 space-y-0.5">
+              ${plan.microSteps.map(s => `<li>${s}</li>`).join('')}
+            </ul>
+          `;
+          planBox.classList.remove('hidden');
+          showToast(`Gemini prepared a ${plan.durationMin}m sprint blueprint!`, '✨');
+        }
+      } catch (err) {
+        // Fallback demo blueprint
+        planContent.innerHTML = `
+          <div class="mb-1 font-semibold text-stone-900">Sprint Plan for "${task}":</div>
+          <ul class="list-disc pl-4 space-y-0.5">
+            <li>1. Skim chapter headings and formula summary (5 min)</li>
+            <li>2. Solve 3 high-frequency practice problems (20 min)</li>
+            <li>3. Quick flashcard self-quiz before break (5 min)</li>
+          </ul>
+        `;
+        planBox.classList.remove('hidden');
+        showToast('Sprint plan generated!', '✨');
+      } finally {
+        btn.innerHTML = `<span>✨</span> AI Break Down`;
+        btn.disabled = false;
+      }
+    }
+
+    // Gemini Feature: Excuse Gatekeeper
+    function promptForExcuse() {
+      const box = document.getElementById('modal-excuse-box');
+      const input = document.getElementById('excuse-input');
+      const verdict = document.getElementById('excuse-verdict');
+      box.classList.remove('hidden');
+      verdict.classList.add('hidden');
+      input.value = '';
+      input.focus();
+    }
+
+    async function submitExcuseToAI() {
+      const input = document.getElementById('excuse-input');
+      const verdict = document.getElementById('excuse-verdict');
+      const excuse = input?.value?.trim() || "Just need to check one funny meme";
+      const task = document.getElementById('modal-task-badge')?.textContent || 'chemistry';
+      const site = document.getElementById('modal-blocked-site')?.textContent || 'reddit.com';
+
+      verdict.classList.remove('hidden');
+      verdict.innerHTML = '<span class="text-stone-500 font-mono">Gemini AI is analyzing your excuse...</span>';
+
+      const prompt = `You are a tough-love study coach. A user trying to study "${task}" opened blocked site "${site}" and offers this excuse: "${excuse}".
+Evaluate if this is genuine work necessity or blatant procrastination.
+Return JSON:
+{
+  "approved": boolean,
+  "verdict": "witty 1 sentence reason"
+}`;
+
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+      const payload = {
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              "approved": { "type": "BOOLEAN" },
+              "verdict": { "type": "STRING" }
+            },
+            required: ["approved", "verdict"]
+          }
+        }
+      };
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        const res = JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text);
+
+        if (res.approved) {
+          verdict.innerHTML = `<span class="text-emerald-700 font-bold">✅ Pass Granted:</span> ${res.verdict}`;
+          setTimeout(() => {
+            dismissNudgeModal('quick');
+          }, 1800);
+        } else {
+          verdict.innerHTML = `<span class="text-rose-700 font-bold">🚫 Denied:</span> ${res.verdict}`;
+        }
+      } catch (e) {
+        // Fallback
+        verdict.innerHTML = `<span class="text-rose-700 font-bold">🚫 Denied:</span> Nice try! Reddit won't help you revise ${task}. Back to work!`;
+      }
+    }
+
+    // Playback of current modal roast using Web Audio / Gemini TTS
+    async function speakCurrentNudge() {
+      const voice = document.getElementById('tts-voice-select')?.value || 'Kore';
+      const text = latestNudgeSpokenText || "Hey friend! Chemistry needs your attention. Close Reddit and get back to work!";
+
+      showToast('Generating spoken audio with Gemini TTS...', '🎙️');
+
+      if (currentInterventionAudio) {
+        currentInterventionAudio.pause();
+      }
+
+      const audioUrl = await callGeminiTts(text, voice);
+      if (audioUrl) {
+        currentInterventionAudio = new Audio(audioUrl);
+        currentInterventionAudio.play();
+        showToast(`Playing speech (${voice} voice)`, '🔊');
+      } else {
+        // Fallback to browser SpeechSynthesis if offline
+        if ('speechSynthesis' in window) {
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.rate = 1.05;
+          window.speechSynthesis.speak(utter);
+          showToast('Playing spoken nudge via audio synthesis', '🔊');
         }
       }
-      if (currentProgress >= keyframes[keyframes.length - 1].progress) {
-        segmentIndex = keyframes.length - 2;
-      }
+    }
 
-      const k1 = keyframes[segmentIndex];
-      const k2 = keyframes[segmentIndex + 1];
+    // Toast helper
+    function showToast(message, icon = '💡') {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      const toastIcon = document.getElementById('toast-icon');
+      if (!toast) return;
 
-      const segmentSpan = k2.progress - k1.progress;
-      const localT = Math.max(0, Math.min(1, (currentProgress - k1.progress) / segmentSpan));
+      toastMsg.textContent = message;
+      toastIcon.textContent = icon;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
 
-      // Interpolate viewBox camera
-      const vx = lerp(k1.viewBox.x, k2.viewBox.x, localT);
-      const vy = lerp(k1.viewBox.y, k2.viewBox.y, localT);
-      const vw = lerp(k1.viewBox.w, k2.viewBox.w, localT);
-      const vh = lerp(k1.viewBox.h, k2.viewBox.h, localT);
-      svg.setAttribute('viewBox', `${vx} ${vy} ${vw} ${vh}`);
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2600);
+    }
 
-      // Interpolate Vehicle Position
-      const cx = lerp(k1.coords.x, k2.coords.x, localT);
-      const cy = lerp(k1.coords.y, k2.coords.y, localT);
-      avatar.setAttribute('transform', `translate(${cx}, ${cy})`);
-
-      // Interpolate Patna City Grid overlay
-      const gridOpacity = lerp(k1.patnaGridOpacity, k2.patnaGridOpacity, localT);
-      patnaGrid.style.opacity = gridOpacity;
-
-      // Active vehicle sprite switch
-      const activeStage = localT < 0.5 ? k1 : k2;
-      stageTitle.innerText = activeStage.title;
-      vehicleIndicator.innerText = activeStage.vehicle;
-
-      trainSprite.classList.add('opacity-0');
-      cycleSprite.classList.add('opacity-0');
-      planeSprite.classList.add('opacity-0');
-
-      if (activeStage.type === 'train') {
-        trainSprite.classList.remove('opacity-0');
-      } else if (activeStage.type === 'cycle') {
-        cycleSprite.classList.remove('opacity-0');
-      } else if (activeStage.type === 'plane') {
-        planeSprite.classList.remove('opacity-0');
-      }
-
-      // Update percent readout
-      scrollPct.innerText = `${Math.round(currentProgress * 100)}% Journey`;
-
-      // Update Popping Story Bubbles on the right
-      const activeBubbleIndex = Math.min(3, Math.floor(currentProgress * 3.99));
-      bubbles.forEach((b, idx) => {
-        if (!b) return;
-        if (idx === activeBubbleIndex) {
-          b.classList.add('active-pop');
-        } else {
-          b.classList.remove('active-pop');
+    // =========================================================================
+    // SCREENSHOT VIEWER SWITCHING LOGIC (NO MOCK FORMS OR COMPLICATED DEMO ENGINE)
+    // =========================================================================
+    function showScreenshot(screenshotKey) {
+      const views = ['focus-lock', 'new-task', 'calendar', 'nudge-modal'];
+      views.forEach(v => {
+        const el = document.getElementById('view-ss-' + v);
+        if (el) el.classList.add('hidden');
+        const tab = document.getElementById('tab-ss-' + v);
+        if (tab) {
+          tab.className = "px-2.5 py-1 rounded-xl hover:bg-white text-stone-800 transition whitespace-nowrap";
         }
       });
 
-      requestAnimationFrame(tick);
+      const userImg = document.getElementById('view-user-image');
+      if (userImg) userImg.classList.add('hidden');
+
+      const activeView = document.getElementById('view-ss-' + screenshotKey);
+      if (activeView) activeView.classList.remove('hidden');
+
+      const activeTab = document.getElementById('tab-ss-' + screenshotKey);
+      if (activeTab) {
+        activeTab.className = "px-2.5 py-1 rounded-xl bg-stone-900 text-white font-bold shadow-sm transition whitespace-nowrap";
+      }
+
+      const status = document.getElementById('screenshot-status-pill');
+      if (status) {
+        const titles = {
+          'focus-lock': '● Screenshot 3: Active Lock (21:01)',
+          'new-task': '● Screenshot 1: New Task Setup',
+          'calendar': '● Screenshot 2: October Calendar',
+          'nudge-modal': '● Screenshot 5: In-Tab AI Nudge'
+        };
+        status.textContent = titles[screenshotKey] || '● Screenshot Proof';
+      }
     }
 
-    // Email Copy helper
-    function copyEmail(btn) {
-      const email = 'kanisk.builds@gmail.com';
-      const textSpan = document.getElementById('copy-btn-text');
+    // Allow user to pick a local screenshot file directly to inspect it inside the frame
+    function loadUserScreenshot(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const userImgContainer = document.getElementById('view-user-image');
+        const img = document.getElementById('user-uploaded-img');
+        const views = ['focus-lock', 'new-task', 'calendar', 'nudge-modal'];
+        views.forEach(v => {
+          const el = document.getElementById('view-ss-' + v);
+          if (el) el.classList.add('hidden');
+        });
+        img.src = e.target.result;
+        userImgContainer.classList.remove('hidden');
+
+        const status = document.getElementById('screenshot-status-pill');
+        if (status) status.textContent = `● Loaded: ${file.name}`;
+        showToast(`Loaded screenshot proof: ${file.name}`, '📸');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Scroll to screenshot proof section
+    function scrollToProof() {
+      const el = document.getElementById('proof-gallery-section');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // =========================================================================
+    //
+    // =========================================================================
+    function openWaitlistModal() {
+      const modal = document.getElementById('waitlist-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeWaitlistModal() {
+      const modal = document.getElementById('waitlist-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function dispatchWaitlistEmail(name, email, distraction = '') {
+      const recipient = 'admin@kaniskgautam.com';
+      const subject = encodeURIComponent(`Nudge Focus Beta Waitlist Registration: ${name}`);
+      const body = encodeURIComponent(
+        `Hello Admin,\n\nI would like to register for the Nudge Focus Chrome Extension Beta.\n\n` +
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `Biggest Distraction: ${distraction || 'Not specified'}\n` +
+        `Requested At: ${new Date().toLocaleString()}\n\n` +
+        `Looking forward to receiving the beta build!`
+      );
+
+ 
+      const mailtoLink = `mailto:${recipient}?subject=${subject}&body=${body}`;
       
-      const tempInput = document.createElement('input');
-      tempInput.value = email;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
+      // Save in localStorage for persistence
+      try {
+        const stored = JSON.parse(localStorage.getItem('nudge_beta_registrations') || '[]');
+        stored.push({ name, email, distraction, date: new Date().toISOString() });
+        localStorage.setItem('nudge_beta_registrations', JSON.stringify(stored));
+      } catch (err) {
+        console.warn('LocalStorage save failed:', err);
+      }
 
-      textSpan.innerText = 'Copied! 🎉';
-      setTimeout(() => {
-        textSpan.innerText = email;
-      }, 2400);
+      window.location.href = mailtoLink;
+      showToast(`Registered ${email}! adding user`, '🎟️');
     }
 
-    window.addEventListener('scroll', updateScrollProgress, { passive: true });
-    window.addEventListener('resize', updateScrollProgress);
+    function handleWaitlistSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('waitlist-name')?.value?.trim() || 'Beta Tester';
+      const email = document.getElementById('waitlist-email')?.value?.trim();
+      const distraction = document.getElementById('waitlist-distraction')?.value?.trim() || '';
 
-    // Start engine
-    updateScrollProgress();
-    requestAnimationFrame(tick);
+      if (!email) {
+        showToast('Please enter a valid email address');
+        return;
+      }
+
+      closeWaitlistModal();
+      dispatchWaitlistEmail(name, email, distraction);
+    }
+
+    function handleInlineWaitlist(event) {
+      event.preventDefault();
+      const emailInput = document.getElementById('inline-waitlist-email');
+      const email = emailInput?.value?.trim();
+      if (!email) return;
+
+      dispatchWaitlistEmail('Early Beta User', email, 'Various');
+      if (emailInput) emailInput.value = '';
+    }
+
+    // Chrome Web Store install modal mock replaced with waitlist
+    function openInstallModal() {
+      openWaitlistModal();
+    }
+
+    // Tag management in New Task screen
+    function removeTag(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+      showToast('Tag removed');
+    }
+
+    function addNewCustomTag() {
+      const customTag = prompt('Enter a new tag name (e.g. #exam, #work):', '#focus');
+      if (customTag && customTag.trim()) {
+        const clean = customTag.trim().startsWith('#') ? customTag.trim() : '#' + customTag.trim();
+        const container = document.querySelector('#screen-new-task .border-dashed');
+        if (container) {
+          const div = document.createElement('div');
+          div.className = "inline-flex items-center gap-1 px-2.5 py-1 bg-[#ffe885] border-2 border-stone-900 rounded-full text-xs font-hand font-bold shadow-sketch-sm";
+          div.innerHTML = `<span>${clean} ✏️</span> <button onclick="this.parentElement.remove()" class="hover:text-red-600 font-bold text-xs ml-0.5">✕</button>`;
+          container.insertBefore(div, container.lastElementChild);
+          showToast(`Added ${clean}`);
+        }
+      }
+    }
+
+    // Blocking Mode switch
+    function setBlockingMode(mode) {
+      const btnDistract = document.getElementById('mode-distractions');
+      const btnWhite = document.getElementById('mode-whitelist');
+      if (mode === 'distractions') {
+        btnDistract.className = "py-2 px-2 bg-stone-900 text-white rounded-lg font-hand font-bold flex items-center justify-center gap-1.5 transition";
+        btnWhite.className = "py-2 px-2 text-stone-800 hover:bg-stone-200 rounded-lg font-hand font-bold flex items-center justify-center gap-1.5 transition";
+        showToast('Mode: Block Distraction Sites');
+      } else {
+        btnWhite.className = "py-2 px-2 bg-stone-900 text-white rounded-lg font-hand font-bold flex items-center justify-center gap-1.5 transition";
+        btnDistract.className = "py-2 px-2 text-stone-800 hover:bg-stone-200 rounded-lg font-hand font-bold flex items-center justify-center gap-1.5 transition";
+        showToast('Mode: Whitelist Only (Strict)');
+      }
+    }
+
+    // Blocked sites list management
+    function updateBlockedCount() {
+      const chips = document.querySelectorAll('.site-chip');
+      const counter = document.getElementById('blocked-count');
+      if (counter) counter.textContent = chips.length;
+    }
+
+    function removeSite(button) {
+      const chip = button.closest('.site-chip');
+      if (chip) {
+        chip.remove();
+        updateBlockedCount();
+        showToast('Site unblocked');
+      }
+    }
+
+    function clearAllBlockedSites() {
+      const container = document.getElementById('blocked-sites-container');
+      if (container) {
+        container.innerHTML = '<span class="text-xs text-stone-400 italic py-1">No sites currently blocked.</span>';
+        updateBlockedCount();
+        showToast('Blocklist cleared');
+      }
+    }
+
+    function quickAddSite(btn, domain) {
+      const container = document.getElementById('blocked-sites-container');
+      if (container) {
+        // remove empty message if any
+        if (container.querySelector('.text-stone-400')) {
+          container.innerHTML = '';
+        }
+        const chip = document.createElement('span');
+        chip.className = "site-chip inline-flex items-center gap-1 px-2.5 py-1 bg-red-50 text-red-700 border border-red-300 rounded-full text-xs font-semibold";
+        chip.innerHTML = `${domain} <button onclick="removeSite(this)" class="font-bold ml-1 hover:text-red-900">✕</button>`;
+        container.appendChild(chip);
+        btn.remove();
+        updateBlockedCount();
+        showToast(`Added ${domain} to blocklist!`, '🚫');
+      }
+    }
+
+    // Timer logic in Active Focus Lock
+    let timerInterval = null;
+    let secondsRemaining = 21 * 60 + 1; // 21:01 default from screenshot
+    let totalInitialSeconds = 27 * 60; // ~23% elapsed
+
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function startTimerCountdown() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (secondsRemaining > 0) {
+          secondsRemaining--;
+          const timerEl = document.getElementById('active-timer-display');
+          const barEl = document.getElementById('active-progress-bar');
+          const pctEl = document.getElementById('active-progress-text');
+          
+          if (timerEl) timerEl.textContent = formatTime(secondsRemaining);
+          
+          const progress = Math.min(100, Math.round(((totalInitialSeconds - secondsRemaining) / totalInitialSeconds) * 100));
+          if (barEl) barEl.style.width = progress + '%';
+          if (pctEl) pctEl.textContent = progress + '% complete';
+        } else {
+          clearInterval(timerInterval);
+          playAudioTone('bell');
+          showToast('Focus sprint completed! Well done!', '🎉');
+        }
+      }, 1000);
+    }
+
+    // Start Focus Session
+    function startFocusSession() {
+      const taskInput = document.getElementById('task-name-input');
+      const durationInput = document.getElementById('task-duration-input');
+      
+      const taskName = taskInput && taskInput.value.trim() ? taskInput.value.trim() : 'chemistry';
+      const durationMin = durationInput ? parseInt(durationInput.value) || 30 : 30;
+
+      totalInitialSeconds = durationMin * 60;
+      secondsRemaining = Math.round(totalInitialSeconds * 0.77); // start at ~23% completed like screenshot
+
+      document.getElementById('active-task-label').textContent = taskName;
+      document.getElementById('active-timer-display').textContent = formatTime(secondsRemaining);
+      document.getElementById('active-progress-bar').style.width = '23%';
+      document.getElementById('active-progress-text').textContent = '23% complete';
+
+      playAudioTone('bell');
+      switchScreen('focus-lock');
+      startTimerCountdown();
+      showToast(`Locked in on: "${taskName}"`, '🔒');
+    }
+
+    function endFocusSession() {
+      if (timerInterval) clearInterval(timerInterval);
+      showToast('Focus session ended.');
+      switchScreen('new-task');
+    }
+
+    let isBreakActive = false;
+    function toggleTakeBreak() {
+      const btn = document.getElementById('btn-take-break');
+      isBreakActive = !isBreakActive;
+      if (isBreakActive) {
+        btn.textContent = 'Resume Focus';
+        btn.classList.add('bg-amber-600', 'border-amber-500');
+        showToast('5-minute break started. Relax!', '☕');
+      } else {
+        btn.textContent = 'Take Break';
+        btn.classList.remove('bg-amber-600', 'border-amber-500');
+        showToast('Break finished, back in focus mode!', '⚡');
+      }
+    }
+
+    function addSiteDuringLock() {
+      const input = document.getElementById('add-during-lock-input');
+      if (input && input.value.trim()) {
+        showToast(`Added ${input.value.trim()} to current lock!`, '🛡️');
+        input.value = '';
+      }
+    }
+
+    // =================================================================
+    // AI DISTRACTION INTERVENTION ENGINE & MODAL CONTROLS
+    // =================================================================
+    async function triggerSimulatedIntervention(task, site, name, persona, useLiveGemini = false) {
+      playAudioTone('alert');
+
+      const currentTask = task || document.getElementById('task-name-input')?.value || 'chemistry';
+      const currentSite = site || 'reddit.com';
+      const userName = name || 'ryan';
+      const currentPersona = persona || 'sassy';
+
+      const modal = document.getElementById('ai-nudge-modal');
+      const headline = document.getElementById('modal-headline');
+      const bodyCopy = document.getElementById('modal-body-copy');
+      const faceSad = document.getElementById('face-sad');
+      const faceAngry = document.getElementById('face-angry');
+      const taskBadge = document.getElementById('modal-task-badge');
+      const aiTag = document.getElementById('modal-ai-tag');
+      const excuseBox = document.getElementById('modal-excuse-box');
+
+      if (excuseBox) excuseBox.classList.add('hidden');
+      taskBadge.textContent = currentTask;
+
+      let geminiOutput = null;
+      if (useLiveGemini) {
+        const spinner = document.getElementById('btn-launch-spinner');
+        if (spinner) spinner.classList.remove('hidden');
+        geminiOutput = await callGeminiInterventionGen(userName, currentTask, currentSite, currentPersona);
+        if (spinner) spinner.classList.add('hidden');
+      }
+
+      if (geminiOutput) {
+        aiTag.classList.remove('hidden');
+        headline.textContent = geminiOutput.headline;
+        bodyCopy.innerHTML = `
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 border-2 border-stone-900 rounded-lg bg-white font-bold text-stone-900 shadow-sketch-sm">
+            ${userName} ✏️
+          </span>
+          <span class="mt-2 block">${geminiOutput.body}</span>
+        `;
+        latestNudgeSpokenText = geminiOutput.speechScript || geminiOutput.body;
+
+        if (currentPersona === 'guilt' || currentPersona === 'roast') {
+          faceSad.classList.add('hidden');
+          faceAngry.classList.remove('hidden');
+        } else {
+          faceSad.classList.remove('hidden');
+          faceAngry.classList.add('hidden');
+        }
+      } else {
+        // High fidelity visual recreation from screenshots
+        aiTag.classList.add('hidden');
+        if (currentPersona === 'guilt') {
+          // Screenshot 6: "0 seconds?! Really?! 💀"
+          faceSad.classList.add('hidden');
+          faceAngry.classList.remove('hidden');
+          headline.innerHTML = `0 seconds?! Really?! 💀`;
+          bodyCopy.innerHTML = `
+            Did you really just open <strong>${currentSite}</strong> 0s into <span class="font-bold squiggly-red">${currentTask}</span>?!
+            Doomscrolling comments won't revise ${currentTask} for you, 
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 border-2 border-stone-900 rounded-lg bg-amber-100 font-bold text-stone-900 shadow-sketch-sm">
+              ${userName} ✏️
+            </span>! Close it!
+          `;
+          latestNudgeSpokenText = `Did you really just open ${currentSite} zero seconds into ${currentTask}? Doomscrolling won't revise ${currentTask} for you, ${userName}! Close it!`;
+        } else if (currentPersona === 'gentle') {
+          // Screenshot 7: "Hey Friend 👀"
+          faceSad.classList.remove('hidden');
+          faceAngry.classList.add('hidden');
+          headline.innerHTML = `Hey ${userName} 👀`;
+          bodyCopy.innerHTML = `
+            Friend, you're on <strong>${currentSite}</strong> while 
+            <span class="font-bold squiggly">"${currentTask}"</span> is unfinished. Let's finish strong!
+          `;
+          latestNudgeSpokenText = `Friend, you are on ${currentSite} while ${currentTask} is unfinished. Let's finish strong!`;
+        } else if (currentPersona === 'roast') {
+          faceSad.classList.add('hidden');
+          faceAngry.classList.remove('hidden');
+          headline.innerHTML = `Nice try, ${userName}! 🤡`;
+          bodyCopy.innerHTML = `
+            Browsing <strong>${currentSite}</strong> won't magically solve your <span class="font-bold squiggly">${currentTask}</span> exam. 
+            Your future self is glaring at you right now!
+          `;
+          latestNudgeSpokenText = `Nice try, ${userName}! Browsing ${currentSite} won't magically solve your ${currentTask}. Your future self is glaring at you right now!`;
+        } else {
+          // Screenshot 5: "Why are we here? 👀"
+          faceSad.classList.remove('hidden');
+          faceAngry.classList.add('hidden');
+          headline.innerHTML = `Why are we here? 👀`;
+          bodyCopy.innerHTML = `
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 border-2 border-stone-900 rounded-lg bg-white font-bold text-stone-900 shadow-sketch-sm">
+              ${userName} ✏️
+            </span>, you're browsing <strong>${currentSite}</strong> while 
+            <span class="font-bold squiggly">${currentTask}</span> needs your attention. Browsing <strong>${currentSite}</strong> won't revise ${currentTask} for you!
+          `;
+          latestNudgeSpokenText = `Why are we here? ${userName}, you're browsing ${currentSite} while ${currentTask} needs your attention. Close it!`;
+        }
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function triggerCustomNudge(useGemini = false) {
+      const name = document.getElementById('demo-name')?.value || 'ryan';
+      const task = document.getElementById('demo-task')?.value || 'chemistry';
+      const site = document.getElementById('demo-site')?.value || 'reddit.com';
+      const style = document.getElementById('demo-style')?.value || 'sassy';
+      triggerSimulatedIntervention(task, site, name, style, useGemini);
+    }
+
+    function dismissNudgeModal(action) {
+      const modal = document.getElementById('ai-nudge-modal');
+      modal.classList.add('hidden');
+      if (currentInterventionAudio) {
+        currentInterventionAudio.pause();
+      }
+      if (action === 'work') {
+        showToast('Closed distraction tab! Back to work 🚀', '💪');
+        switchScreen('focus-lock');
+      } else if (action === 'quick') {
+        showToast('3-minute grace period active. Clock is ticking!', '⏳');
+      }
+    }
+
+    // ESC key closes modal
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('ai-nudge-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+          dismissNudgeModal('work');
+        }
+      }
+    });
   </script>
 </body>
 </html>

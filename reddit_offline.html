@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f6f0"><meta name="description" content="Vyara — A calmer way to manage your handles.">
+<link rel="icon" href="favicon.ico">
+<title>Vyara — A calmer way to manage your handles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f7f6f0;--ink:#26281f;--olive:#687249;--line:#dedfd4;--muted:#74776b;--white:#fffefb}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:18px}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 'DM Sans',sans-serif}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}.header{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;position:relative;z-index:3}.nav{display:flex;align-items:center;justify-content:space-between;width:100%;gap:20px}.logo{font-weight:700;font-size:29px;letter-spacing:-1.7px}.logo span{color:var(--olive)}.navlinks{display:flex;align-items:center;gap:24px;font-size:13px;color:#55584c}.navlinks a:hover{color:var(--olive)}.nav-cta{background:var(--olive);color:#fff!important;padding:8px 16px;border-radius:4px;font-weight:600;transition:.18s}.nav-cta:hover{background:#454d31}.toggle{display:none;background:none;border:1px solid var(--line);border-radius:5px;padding:8px 12px;font-size:19px;color:var(--ink)}.eyebrow{font:11px 'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--olive)}h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;line-height:1.1;letter-spacing:-1.4px}.hero{text-align:center;padding:75px 0 68px}h1{font-size:clamp(48px,7vw,78px);margin:20px 0 15px;letter-spacing:-3px}.tagline{font-size:clamp(17px,2.5vw,21px);color:var(--muted);margin:0}.btn{display:inline-flex;background:var(--olive);color:white;padding:13px 19px;border-radius:4px;font-size:13px;font-weight:600;margin-top:25px;transition:.18s}.btn:hover{background:#454d31;transform:translateY(-1px)}.shot{margin:47px auto 0;max-width:940px;text-align:left;border:1px solid #d8d9ce;border-radius:8px;overflow:hidden;background:var(--white);box-shadow:0 20px 60px #30351c10}.browser{padding:13px 15px;display:flex;align-items:center;gap:7px;background:#faf9f4;border-bottom:1px solid #e6e6dd}.dot{width:7px;height:7px;border-radius:50%;background:#d1d2c7}.address{font:10px 'DM Mono',monospace;color:#929487;margin-left:8px}.dash{display:grid;grid-template-columns:155px minmax(0,1fr);min-height:340px}.sidebar{padding:20px 12px;background:#f5f4ed;border-right:1px solid #e5e5dc}.side-logo{font-size:18px;font-weight:700;padding:0 8px 18px}.side-label{font:9px 'DM Mono',monospace;color:#999b8e;padding:10px 8px;letter-spacing:1px}.side-link{padding:9px 8px;font-size:11px;color:#727568;border-radius:4px}.side-link.active{background:#e6e8dc;color:#4d5637}.dash-main{padding:clamp(18px,3.5vw,32px);min-width:0}.dash-main h3{font-size:clamp(22px,3vw,30px);margin:7px 0}.sub{font-size:11px;color:#858779}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:23px 0}.stat,.panel{border:1px solid #e6e6dd;border-radius:5px;padding:14px;min-width:0}.stat small{font-size:10px;color:#777a6d}.stat strong{display:block;font:500 clamp(18px,2.5vw,26px) 'Playfair Display',serif;margin:7px 0}.stat em{font-style:normal;font-size:9px;color:var(--olive)}.lower{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}.panel-title{font-size:11px;font-weight:600;margin-bottom:10px}.deal{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 0;border-top:1px solid #edede5;font-size:10px}.deal small{display:block;color:#888a7e;margin-top:3px}.pill{background:#edf0e3;color:#59633f;border-radius:3px;padding:4px 6px;font-size:9px;white-space:nowrap}.bars{height:100px;display:flex;align-items:flex-end;justify-content:space-around;gap:7px;border-bottom:1px solid #e5e5dc}.bar{width:10%;background:#d8ddc5;border-radius:3px 3px 0 0}.bar:nth-child(3n+1){background:#707b4c}.section{padding:82px 0;border-top:1px solid var(--line)}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:25px;margin-bottom:34px}h2{font-size:clamp(35px,5vw,54px);max-width:620px;margin:12px 0 0}.intro{font-size:14px;color:var(--muted);max-width:360px;margin:0}.features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}.feature{padding:23px 17px;min-height:174px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.num{font:10px 'DM Mono',monospace;color:#888c76}.feature h3{font:600 15px 'DM Sans',sans-serif;letter-spacing:0;margin:22px 0 8px}.feature p{font-size:12px;color:var(--muted);margin:0}.product{background:#efefe7}.preview{background:var(--white);border:1px solid #d9dacd;border-radius:6px;overflow:hidden}.tabs{display:flex;overflow-x:auto;border-bottom:1px solid #e5e5dc;padding:0 10px;scrollbar-width:thin}.tab{background:none;border:0;border-bottom:2px solid transparent;padding:16px 14px;white-space:nowrap;color:#777a6d;font-size:12px}.tab[aria-selected=true]{border-color:var(--olive);color:#454d31;font-weight:600}.preview-content{padding:clamp(18px,4vw,36px);min-height:275px}.preview-content h3{font-size:28px;margin:8px 0}.preview-content p{font-size:12px;color:var(--muted)}.preview-title{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:20px}.items{border-top:1px solid #e7e7df}.item{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid #e7e7df}.avatar{width:30px;height:30px;border-radius:50%;background:#e3e6d6;display:grid;place-items:center;font-size:10px;font-weight:700}.item b{font-size:12px}.item p{font-size:11px;margin:3px 0 0;overflow-wrap:anywhere}.time{font:10px 'DM Mono',monospace;color:#7c806b;white-space:nowrap}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{border:1px solid #e5e5dc;padding:17px;border-radius:5px}.card h4{font-size:14px;margin:12px 0 6px}.card p{margin:0 0 14px}.card strong{font:500 22px 'Playfair Display',serif}.report-grid,.trend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.report,.trend{border:1px solid #e5e5dc;border-radius:5px;padding:20px}.report strong{display:block;font:500 34px 'Playfair Display',serif;margin:8px 0}.report p,.trend p{margin:0}.trend h4{font-size:14px;margin:8px 0}.note{font-size:10px;color:#898b7e;margin-top:16px}.closing{background:#454d31;color:#f7f6f0;padding:78px 0;text-align:center}.closing .eyebrow{color:#cbd1b5}.closing h2{margin:13px auto;max-width:700px}.closing> .wrap > p{color:#d7d9cc;font-size:14px;max-width:520px;margin:15px auto 28px}
+
+.native-form-wrap{max-width:620px;margin:35px auto 0;text-align:left;background:var(--white);color:var(--ink);padding:clamp(24px,5vw,40px);border-radius:8px;box-shadow:0 15px 40px rgba(0,0,0,0.15)}
+.form-group{margin-bottom:22px}
+.form-group label.field-label{display:block;font-size:12px;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;color:#454d31}
+.form-input{width:100%;background:#fcfbf7;border:1px solid #dadbd0;border-radius:4px;padding:12px 14px;font:inherit;font-size:14px;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+.form-input:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 2px #68724925}
+.checkbox-group{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:8px}
+.checkbox-item{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;background:#fcfbf7;border:1px solid #dadbd0;padding:9px 12px;border-radius:4px;user-select:none}
+.checkbox-item input[type="checkbox"]{accent-color:var(--olive);cursor:pointer;margin:0;width:15px;height:15px}
+.other-box{margin-top:10px}
+.form-submit{width:100%;background:var(--olive);color:#fff;border:none;border-radius:4px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;transition:.18s;margin-top:8px}
+.form-submit:hover{background:#3b422a}
+.form-success{display:none;background:#eef1e6;border:1px solid #cbd2be;color:#3f492b;padding:26px;border-radius:6px;text-align:center;font-size:14px;line-height:1.6}
+.form-note{font-size:11px;color:#d7d9cc;margin-top:16px}
+footer{background:#454d31;color:#e8e9de;border-top:1px solid #ffffff24;padding:24px 0}.foot{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:11px}.foot .logo{font-size:23px}.muted{color:#c5c9b8}
+@media(max-width:800px){.features{grid-template-columns:repeat(2,minmax(0,1fr))}.section{padding:65px 0}.section-head{align-items:flex-start;flex-direction:column;gap:14px}.dash{grid-template-columns:125px minmax(0,1fr)}.sidebar{padding:14px 8px}.lower{grid-template-columns:1fr}}
+@media(max-width:560px){.wrap{width:calc(100% - 30px)}.header{height:65px}.toggle{display:block}.navlinks{display:none;position:absolute;top:64px;left:0;right:0;background:var(--paper);padding:14px 20px;border-bottom:1px solid var(--line);flex-direction:column;gap:0}.navlinks.open{display:flex}.navlinks a{padding:12px 0;border-bottom:1px solid var(--line)}.hero{padding:56px 0 48px}h1{letter-spacing:-2px}.shot{margin-top:30px}.dash{grid-template-columns:1fr}.sidebar{display:none}.dash-main{padding:15px 12px}.stats{gap:6px;margin:17px 0}.stat{padding:10px 7px}.stat small{font-size:9px}.stat strong{font-size:18px}.stat em{font-size:8px}.panel{padding:12px}.features{grid-template-columns:repeat(2,minmax(0,1fr))}.feature{padding:17px 12px;min-height:170px}.feature h3{font-size:13px;margin-top:16px}.feature p{font-size:11px}.tab{padding:14px 11px;font-size:11px}.cards{grid-template-columns:1fr}.report-grid,.trend-grid{grid-template-columns:1fr}.item{grid-template-columns:30px minmax(0,1fr)}.item .time{grid-column:2}.foot{align-items:flex-start;flex-direction:column;gap:8px}.closing{padding:60px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="wrap nav">
+    <a class="logo" href="#vyara-home" aria-label="Vyara home">vyara<span>.</span></a>
+    <button class="toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="navlinks" id="nav-links">
+      <a href="#what-it-does">What it does</a>
+      <a href="#product">Product</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#join" class="nav-cta">Join beta</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero" id="vyara-home"><div class="wrap"><div class="eyebrow">The business side of being a creator</div><h1>Vyara<span style="color:var(--olive)">.</span></h1><p class="tagline">A calmer way to manage your handles.</p><a class="btn" href="#product">Explore the product ↗</a>
+<div class="shot" aria-label="Illustrative Vyara dashboard screenshot"><div class="browser"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="address">app.vyara.example / overview</span></div><div class="dash"><aside class="sidebar"><div class="side-logo">vyara<span style="color:var(--olive)">.</span></div><div class="side-label">Workspace</div><div class="side-link active">◫ &nbsp; Overview</div><div class="side-link">▤ &nbsp; Collaborations</div><div class="side-link">✉ &nbsp; Inbox</div><div class="side-link">◇ &nbsp; Payments</div><div class="side-link">↗ &nbsp; Performance</div><div class="side-label">Manage</div><div class="side-link">☷ &nbsp; Deliverables</div><div class="side-link">◷ &nbsp; Trends</div></aside><div class="dash-main"><div class="eyebrow" style="font-size:9px">YOUR WORKSPACE</div><h3>Your work, in one place.</h3><div class="sub">A clear view of what's moving and what's next.</div><div class="stats"><div class="stat"><small>Revenue this month</small><strong>$4,850</strong><em>↑ 12% this month</em></div><div class="stat"><small>Active collaborations</small><strong>06</strong><em>2 due this week</em></div><div class="stat"><small>Awaiting payment</small><strong>$1,200</strong><em>2 invoices outstanding</em></div></div><div class="lower"><div class="panel"><div class="panel-title">Recent collaborations</div><div class="deal"><div>Studio Botanica<small>Instagram · Reel</small></div><span class="pill">In progress</span></div><div class="deal"><div>Sunday Objects<small>TikTok · Video</small></div><span class="pill">Review</span></div><div class="deal"><div>Field Notes Co.<small>Instagram · Stories</small></div><span class="pill">Payment due</span></div></div><div class="panel"><div class="panel-title">Earnings overview</div><div class="bars"><i class="bar" style="height:32%"></i><i class="bar" style="height:48%"></i><i class="bar" style="height:40%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:56%"></i><i class="bar" style="height:83%"></i><i class="bar" style="height:72%"></i></div><div class="sub" style="margin-top:8px">APR — OCT</div></div></div><div class="note">Illustrative screenshot. All figures and collaborations are sample data.</div></div></div></div></div></section>
+
+<section class="section" id="what-it-does"><div class="wrap"><div class="section-head"><div><div class="eyebrow">01 / What it does</div><h2>Less admin. More room to create.</h2></div><p class="intro">The business side of being a creator—or working with creators—shouldn't feel like a second full-time job.</p></div><div class="features"><article class="feature"><div class="num">01 — COMMUNICATION</div><h3>Unified inbox</h3><p>Keep brand conversations and collaboration details organised in one place.</p></article><article class="feature"><div class="num">02 — FINANCES</div><h3>Invoicing & payments</h3><p>Create invoices, track what's due, and see payment status at a glance.</p></article><article class="feature"><div class="num">03 — PERFORMANCE</div><h3>ROI reporting</h3><p>Bring campaign results into clearer reports that explain the value of your work.</p></article><article class="feature"><div class="num">04 — DISCOVERY</div><h3>Trend tracking</h3><p>Keep an eye on emerging formats, topics, and trends worth exploring.</p></article><article class="feature"><div class="num">05 — DEALS</div><h3>Escrow for deals</h3><p>A planned payment-protection workflow for agreed collaboration milestones.</p></article><article class="feature"><div class="num">06 — PARTNERSHIPS</div><h3>Brand collaborations</h3><p>Keep partnership conversations, briefs, rates, and next steps together.</p></article><article class="feature"><div class="num">07 — CAMPAIGNS</div><h3>Campaign management</h3><p>Track deliverables, deadlines, approvals, and campaign progress.</p></article><article class="feature"><div class="num">08 — CLARITY</div><h3>One calmer workflow</h3><p>Spend less time jumping between messages, documents, and reminders.</p></article></div></div></section>
+
+<section class="section product" id="product"><div class="wrap"><div class="section-head"><div><div class="eyebrow">02 / The product</div><h2>A closer look at your workspace.</h2></div><p class="intro">Explore the workflows Vyara is designed to bring together. Choose a tab to switch views.</p></div><div class="preview"><div class="tabs" role="tablist" aria-label="Product preview"><button class="tab" role="tab" aria-selected="true" data-view="inbox">Unified inbox</button><button class="tab" role="tab" aria-selected="false" data-view="deals">Collaborations</button><button class="tab" role="tab" aria-selected="false" data-view="payments">Payments</button><button class="tab" role="tab" aria-selected="false" data-view="reports">ROI reports</button><button class="tab" role="tab" aria-selected="false" data-view="trends">Trend watch</button></div><div class="preview-content" id="preview-panel" role="tabpanel" aria-live="polite"></div></div></div></section>
+
+<section class="section" id="how-it-works"><div class="wrap"><div class="section-head"><div><div class="eyebrow">03 / A simpler rhythm</div><h2>Know what needs your attention.</h2></div><p class="intro">From the first brand message to the final report, keep the next step visible and the busywork manageable.</p></div><div class="features" style="grid-template-columns:repeat(3,minmax(0,1fr))"><article class="feature"><div class="num">STEP 01</div><h3>Bring it together</h3><p>Organise opportunities, conversations, campaign details, and deadlines in one workspace.</p></article><article class="feature"><div class="num">STEP 02</div><h3>Keep work moving</h3><p>Track deliverables, approvals, invoices, and payments as a collaboration progresses.</p></article><article class="feature"><div class="num">STEP 03</div><h3>Show the impact</h3><p>Collect performance information into a clearer picture of campaign results and value.</p></article></div></div></section>
+
+<section class="closing" id="join">
+  <div class="wrap">
+    <div class="eyebrow">04 / Early Access</div>
+    <h2>Make space for the work you love.</h2>
+    <p>Tell us a little about yourself and the platforms you use. Join the Vyara early-interest list right here.</p>
+    
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    
+    <div class="native-form-wrap">
+      <form id="beta-form" action="https://docs.google.com/forms/d/e/1FAIpQLSetShQ0aNIz9EAQwRf0s6WH3LPKT68Kz3SpLSYv9T8Ie4F1Bg/formResponse" method="POST" target="hidden_iframe">
+        
+        <div class="form-group">
+          <label class="field-label" for="f-name">Full name</label>
+          <input class="form-input" type="text" id="f-name" name="entry.2005620554" placeholder="Your name" required>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="f-email">Email address</label>
+          <input class="form-input" type="email" id="f-email" name="entry.1045781291" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="f-handle">Social media handle</label>
+          <input class="form-input" type="text" id="f-handle" name="entry.839337160" placeholder="@yourhandle" required>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Which platforms do you use?</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" name="entry.2054305097" value="Instagram">
+              Instagram
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="entry.2054305097" value="YouTube">
+              YouTube
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="entry.2054305097" value="TikTok">
+              TikTok
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="other-toggle" name="entry.2054305097" value="__other_option__">
+              Other
+            </label>
+          </div>
+          <div class="other-box" id="other-input-wrap" style="display:none;">
+            <input class="form-input" type="text" id="other-text" name="entry.2054305097.other_option_response" placeholder="Please specify platform(s)...">
+          </div>
+        </div>
+
+        <button type="submit" class="form-submit" id="submit-btn">Join the Beta →</button>
+      </form>
+
+      <div id="form-success" class="form-success">
+        <h3 style="margin:0 0 8px;font-size:20px;font-family:'Playfair Display',serif;">You're on the list!</h3>
+        <p style="margin:0;color:#55584c;">Thank you for registering. We'll be in touch soon with your early invite.</p>
+      </div>
+    </div>
+    
+    <div class="form-note"></div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap foot"><a href="#vyara-home" class="logo">vyara<span>.</span></a><span class="muted">A calmer way to manage your handles.</span><span class="muted">© 2026 Vyara</span></div></footer>
+<script>
+(function(){
+  const menu=document.getElementById('nav-toggle'),nav=document.getElementById('nav-links');
+  menu.addEventListener('click',()=>{
+    const open=nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded',String(open));
+    menu.setAttribute('aria-label',open?'Close navigation':'Open navigation');
+    menu.textContent=open?'×':'☰';
+  });
+  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    nav.classList.remove('open');
+    menu.setAttribute('aria-expanded','false');
+    menu.textContent='☰';
+  }));
+
+  const otherCheckbox=document.getElementById('other-toggle');
+  const otherWrap=document.getElementById('other-input-wrap');
+  const otherInput=document.getElementById('other-text');
+  otherCheckbox.addEventListener('change',()=>{
+    if(otherCheckbox.checked){
+      otherWrap.style.display='block';
+      otherInput.focus();
+    }else{
+      otherWrap.style.display='none';
+      otherInput.value='';
+    }
+  });
+
+  const betaForm=document.getElementById('beta-form');
+  const successMsg=document.getElementById('form-success');
+  const submitBtn=document.getElementById('submit-btn');
+  let submitted=false;
+
+  betaForm.addEventListener('submit',()=>{
+    submitted=true;
+    submitBtn.disabled=true;
+    submitBtn.textContent='Joining...';
+  });
+
+  document.getElementById('hidden_iframe').addEventListener('load',()=>{
+    if(submitted){
+      betaForm.style.display='none';
+      successMsg.style.display='block';
+    }
+  });
+
+  const views={
+    inbox:`<div class="preview-title"><div><div class="eyebrow">Your conversations</div><h3>Everything in one inbox.</h3><p>Keep brand conversations moving without losing the details.</p></div><span class="pill">3 active conversations</span></div><div class="items"><div class="item"><span class="avatar">SB</span><div><b>Studio Botanica</b><p>Could you share the first cut by Thursday?</p></div><span class="time">10:42 AM</span></div><div class="item"><span class="avatar" style="background:#e9e0d4">SO</span><div><b>Sunday Objects</b><p>We'd love to discuss a follow-up campaign.</p></div><span class="time">YESTERDAY</span></div><div class="item"><span class="avatar" style="background:#e4e9df">FN</span><div><b>Field Notes Co.</b><p>Invoice received, thank you!</p></div><span class="time">MON</span></div></div><div class="note">Sample conversations only. No messages are connected.</div>`,
+    deals:`<div class="preview-title"><div><div class="eyebrow">Brand collaborations</div><h3>Every deal, easier to follow.</h3><p>See what's agreed, in progress, and waiting on a next step.</p></div></div><div class="cards"><div class="card"><div class="eyebrow">IN PROGRESS</div><h4>Studio Botanica</h4><p>Instagram Reel · Due Oct 16</p><strong>$850</strong></div><div class="card"><div class="eyebrow">AWAITING APPROVAL</div><h4>Sunday Objects</h4><p>Two short-form videos</p><strong>$1,400</strong></div><div class="card"><div class="eyebrow">COMPLETED</div><h4>Field Notes Co.</h4><p>Story set · Delivered Oct 02</p><strong>$600</strong></div></div><div class="note">Illustrative collaboration details and amounts.</div>`,
+    payments:`<div class="preview-title"><div><div class="eyebrow">Invoicing & payments</div><h3>Know what's been paid.</h3><p>Keep invoice totals and payment status clear at a glance.</p></div></div><div class="card" style="max-width:600px;padding:22px"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><h4 style="font:500 22px 'Playfair Display',serif;margin:0 0 5px">Invoice #VY-0024</h4><p>Studio Botanica · Due Oct 20</p></div><span class="pill">Awaiting payment</span></div><div class="deal"><span>Instagram Reel creation</span><span class="time">$650.00</span></div><div class="deal"><span>Usage rights · 30 days</span><span class="time">$200.00</span></div><div style="display:flex;justify-content:space-between;padding-top:17px;font-size:13px;font-weight:600"><span>Total due</span><span>$850.00 USD</span></div></div><div class="note">Illustrative invoice only. No payment is being collected.</div>`,
+    reports:`<div class="preview-title"><div><div class="eyebrow">Campaign performance</div><h3>Make the impact easier to see.</h3><p>Bring campaign outcomes together for clearer reporting.</p></div></div><div class="report-grid"><div class="report"><div class="eyebrow">TOTAL REACH</div><strong>128.4K</strong><p>Across 3 sample campaign posts</p></div><div class="report"><div class="eyebrow">LINK CLICKS</div><strong>3,240</strong><p>Reported clicks across campaign links</p></div><div class="report"><div class="eyebrow">ENGAGEMENT RATE</div><strong>5.8%</strong><p>Illustrative campaign average</p></div><div class="report"><div class="eyebrow">CAMPAIGN VALUE</div><strong>$2,850</strong><p>Sample agreed collaboration fees</p></div></div><div class="note">All performance figures are examples, not live platform data.</div>`,
+    trends:`<div class="preview-title"><div><div class="eyebrow">Trend watch</div><h3>Notice what's gaining momentum.</h3><p>A sample view of topics you might explore for upcoming content.</p></div></div><div class="trend-grid"><div class="trend"><div class="eyebrow">RISING · EXAMPLE</div><h4>Behind-the-scenes routines</h4><p>Process-led short videos and everyday creator workflows.</p></div><div class="trend"><div class="eyebrow">RISING · EXAMPLE</div><h4>Thoughtful product edits</h4><p>Curated finds, honest reviews, and considered recommendations.</p></div><div class="trend"><div class="eyebrow">STEADY · EXAMPLE</div><h4>Mini tutorials</h4><p>Useful, focused tips viewers can save and revisit.</p></div><div class="trend"><div class="eyebrow">EMERGING · EXAMPLE</div><h4>Creator-led storytelling</h4><p>Personal context around how a product fits into life.</p></div></div><div class="note">Topics are placeholders, not live trend data.</div>`
+  };
+  const panel=document.getElementById('preview-panel');
+  function show(key){panel.innerHTML=views[key]||views.inbox}
+  document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected','false'));
+    tab.setAttribute('aria-selected','true');
+    show(tab.dataset.view);
+  }));
+  show('inbox');
+})();
+</script>
+</body>
+</html>
